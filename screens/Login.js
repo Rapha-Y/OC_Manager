@@ -10,12 +10,12 @@ const Login = props => {
     return(
         <View style={styles.page}>
             <View style={styles.logoContainer}>
-                <Logo size={150}/>
+                <Logo size={120}/>
             </View>
             <View style={styles.inputContainer}>
                 <UserInput placeholder="Username or E-mail"/>
                 <UserInput placeholder="Password"/>
-                <UserSubmit text="Log In"/>
+                <UserSubmit onSubmit={props.navigation} text="Log In"/>
             </View>
         </View>
     );
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         marginVertical: "15%",
     },
     inputContainer: {
-        width: "90%",
+        width: "80%",
     },
 });
 
