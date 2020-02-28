@@ -4,10 +4,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Colors from "../resources/Colors.js";
 
 const UserSubmit = props => {
-
     return(
         <View>
-            <TouchableOpacity onPress={() => props.onSubmit.navigate("Blank")} style={styles.button}>
+            <TouchableOpacity onPress={() => {props.validateSubmit();}} style={styles.button}>
                 <Text style={styles.buttonText}>
                     {props.text}
                 </Text>

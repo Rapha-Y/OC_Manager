@@ -6,7 +6,11 @@ import Colors from "../resources/Colors.js";
 const UserInput = props => {
     return(
         <View>
-            <TextInput style={styles.inputField} placeholder={props.placeholder}></TextInput>
+            <TextInput 
+                onChangeText={text => {props.fieldValue(text)}}
+                style={styles.inputField} 
+                placeholder={props.placeholder}
+            />
         </View>
     );
 }
