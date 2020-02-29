@@ -5,9 +5,14 @@ import Colors from "../resources/Colors.js";
 import Logo from "../components/Logo.js";
 import UserInput from "../components/UserInput.js";
 import UserSubmit from "../components/UserSubmit.js";
-import users from "../data/users.json";
 
 const Login = props => {
+    var tempData = [
+        { id: 1, username: "Panko", email: "pinkiepie@gmail.com", password: "anniisstubborn" },
+        { id: 2, username: "Kokojo", email: "kokokokojo@gmail.com", password: "anniisperfect" },
+        { id: 3, username: "Akaichi", email: "idrawsmut@gmail.com", password: "anniislewd" }
+    ]
+
     const [currentUserID, setCurrentUserID] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
 
@@ -19,8 +24,22 @@ const Login = props => {
         setCurrentPassword(password);
     }
 
-    const showDummies = (dummyMail, dummyPass) => {
-        alert(currentUserID + " " + currentPassword);
+    const validateLogin = (navigationFunction) => {
+        var userMatch = tempData.find(
+            tempData => tempData.username === currentUserID || 
+            tempData.email === currentUserID /*&& 
+            tempData.password === currentPassword*/
+        );
+        
+        if(userMatch === undefined) {
+            alert("This account doesn't exist!");
+        } else {
+            if(userMatch.password !== currentPassword) {
+                alert("Wrong password!");
+            } else {
+                navigationFunction("Blank");
+            }
+        }
     }
 
     return(
@@ -31,7 +50,10 @@ const Login = props => {
             <View style={styles.inputContainer}>
                 <UserInput fieldValue={(userIDValue) => {getUserIdentifier(userIDValue);}} placeholder="Username or E-mail"/>
                 <UserInput fieldValue={(passwordValue) => {getPassword(passwordValue);}} placeholder="Password"/>
-                <UserSubmit validateSubmit={() => {showDummies("Hello","World");}} text="Log In"/>
+                <UserSubmit validateSubmit={() => {
+                    validateLogin((pageName) => {props.navigation.navigate(pageName)});
+                }} 
+                text="Log In"/>
             </View>
         </View>
     );
