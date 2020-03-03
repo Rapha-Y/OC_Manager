@@ -1,30 +1,33 @@
-import 'react-native-gesture-handler';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import * as firebase from 'firebase';
 
+import Loading from "./screens/Loading.js";
 import Login from "./screens/Login.js";
 import Blank from "./screens/Blank.js";
 
-const Stack = createStackNavigator();
+import firebaseConfig from "./important-info/apiKey.js";
 
-export default class App extends Component {
-  render() {
-    return(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login}/>
-          <Stack.Screen name="Blank" component={Blank}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-}
+firebase.initializeApp(firebaseConfig);
 
-const styles = StyleSheet.create({
-  page: {
-    flex: 1
-  }
-}); 
+const AppStack = createStackNavigator({
+  Blank: Blank
+});
+
+const AuthStack = createStackNavigator({
+  Login: Login
+});
+
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      Loading: Loading,
+      App: AppStack,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: "Loading"
+    }
+  )
+);

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
+import * as firebase from 'firebase';
 
 import Colors from "../resources/Colors.js";
 import Logo from "../components/Logo.js";
 import UserInput from "../components/UserInput.js";
 import UserSubmit from "../components/UserSubmit.js";
+import { ThemeColors } from 'react-navigation';
 
 export default class Login extends Component {
     state = {
@@ -16,7 +18,10 @@ export default class Login extends Component {
     login = () => {
         const { email, password } = this.state;
 
-        alert(email + " " + password);
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .catch(error => {this.setState({ errorMessage: error.message }); console.log(error);});
     };
 
     render() {
@@ -40,8 +45,13 @@ export default class Login extends Component {
                         placeholder="Password"
                         secureTextEntry={true}
                     />
-                    <UserSubmit submit={() => this.login()} 
-                    text="Log In"/>
+                    <UserSubmit 
+                        submit={() => this.login()}
+                        text="Log In"
+                    />
+                    <View>
+                        {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
+                    </View>
                 </View>
             </View>
         );

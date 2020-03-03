@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "407817657415",
-    "firebase_url": "https://oc-manager-282de.firebaseio.com",
-    "project_id": "oc-manager-282de",
-    "storage_bucket": "oc-manager-282de.appspot.com"
+    "project_number": "827285310192",
+    "firebase_url": "https://konsept-5582b.firebaseio.com",
+    "project_id": "konsept-5582b",
+    "storage_bucket": "konsept-5582b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407817657415:android:c9fc48e459412ab7eb2562",
+        "mobilesdk_app_id": "1:827285310192:android:3a19c18013b884034b1035",
         "android_client_info": {
           "package_name": "com.oc_manager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "407817657415-qjsu1lf9mv6fr8id33lu8vrtbmavako2.apps.googleusercontent.com",
+          "client_id": "827285310192-jsucphtj3hg0lt2udrvgjajdj3rsqikf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDZq8pp1O9yw1hvPT2x77uXLD2ZYh9yjLg"
+          "current_key": "AIzaSyD7iFodfXtM6bt7HpXYwgEZAEQuy2uozXA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "407817657415-qjsu1lf9mv6fr8id33lu8vrtbmavako2.apps.googleusercontent.com",
+              "client_id": "827285310192-jsucphtj3hg0lt2udrvgjajdj3rsqikf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
