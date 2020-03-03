@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "407817657415",
+    "firebase_url": "https://oc-manager-282de.firebaseio.com",
+    "project_id": "oc-manager-282de",
+    "storage_bucket": "oc-manager-282de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407817657415:android:c9fc48e459412ab7eb2562",
+        "android_client_info": {
+          "package_name": "com.oc_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407817657415-qjsu1lf9mv6fr8id33lu8vrtbmavako2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZq8pp1O9yw1hvPT2x77uXLD2ZYh9yjLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407817657415-qjsu1lf9mv6fr8id33lu8vrtbmavako2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

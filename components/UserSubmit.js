@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import Colors from "../resources/Colors.js";
 
-const UserSubmit = props => {
-    return(
-        <View>
-            <TouchableOpacity onPress={() => {props.validateSubmit();}} style={styles.button}>
-                <Text style={styles.buttonText}>
-                    {props.text}
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
+export default class UserSubmit extends Component {
+    render() {
+        return(
+            <View>
+                <TouchableOpacity onPress={() => this.props.submit()} style={styles.button}>
+                    <Text style={styles.buttonText}>
+                        {this.props.text}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -31,5 +33,3 @@ const styles = StyleSheet.create({
         color: Colors.quaternaryColor,
     },
 });
-
-export default UserSubmit;
