@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 
-export default class Blank extends React.Component {
+export default class Feed extends React.Component {
     state = {
         email: ""
     }
