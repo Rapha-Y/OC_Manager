@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import ProfileTabs from '../components/ProfileTabs';
+import Header from '../components/Header';
 
 export default class Profile extends Component {
     render() {
         return(
             <View style={{backgroundColor: "cyan", height: "100%"}}>
+                <Header name="Profile"></Header>
                 <View style={{backgroundColor: "white"}}>
                     <Image 
                         source={{uri: "https://www.vainglorygame.com/wp-content/uploads/2016/12/Joule_Lore_Heistp3.jpg"}}
