@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import Header from '../components/Header';
 import Dropdown from '../components/Dropdown';
+import Summary from '../components/Summary';
+import CharSection from '../components/CharSection';
 
 const characterInfo = {
     summary: {
@@ -12,15 +14,15 @@ const characterInfo = {
     traits: [
         {
             title: "Aliases",
-            content: ["Hooker", "Heart Attack"],
+            content: ["Hooker", "Heart Attack"]
         },
         {
             title: "Personality",
-            content: "Virtuous and protective, secretly murderous"
+            content: ["Virtuous and protective, secretly murderous"]
         },
         {
             title: "Goals",
-            content: ["Clean Zaun", "Clean Bot"]
+            content: ["Clean Zaun", "Clean botlane"]
         },
         {
             title: "Occupations",
@@ -52,27 +54,27 @@ const characterInfo = {
     appearance: [
         {
             title: "Body type",
-            content: "Round and sturdy"
+            content: ["Round and sturdy"]
         },
         {
             title: "Skin",
-            content: "Metallic"
+            content: ["Metallic"]
         },
         {
             title: "Hair",
-            content: "None"
+            content: ["None"]
         },
         {
             title: "Eyes",
-            content: "Glowing"
+            content: ["Glowing"]
         },
         {
             title: "Voice",
-            content: "Robotic"
+            content: ["Robotic"]
         },
         {
             title: "Style",
-            content: "Does not compute"
+            content: ["Does not compute"]
         },
         {
             title: "Vests",
@@ -112,28 +114,32 @@ const characterInfo = {
 export default class Character extends Component {
     render() {
         return(
-            <View>
-                <Header name="Blitzcrank"></Header>
+            <ScrollView style={{flex: 1}}>
+                <Header name="Blitzcrank" />
                 <Dropdown 
                     name="Summary" 
                     collapsed={false}
                     data={characterInfo.summary}
                 />
+                <Summary data={characterInfo.summary} />
                 <Dropdown 
                     name="Traits" 
                     collapsed={false}
                     data={characterInfo.traits}
                 />
+                <CharSection data={characterInfo.traits} />
                 <Dropdown 
                     name="Skills" 
                     collapsed={false}
                     data={characterInfo.skills}
                 />
+                <CharSection data={characterInfo.skills} />
                 <Dropdown 
                     name="Appearance" 
                     collapsed={false}
                     data={characterInfo.appearance}
                 />
+                <CharSection data={characterInfo.appearance} />
                 <Dropdown 
                     name="Story" 
                     collapsed={false}
@@ -144,7 +150,8 @@ export default class Character extends Component {
                     collapsed={false}
                     data={characterInfo.relationships}
                 />
-            </View>
+                <CharSection data={characterInfo.relationships} />
+            </ScrollView>
         );
     }
 }

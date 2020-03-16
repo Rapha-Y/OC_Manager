@@ -16,32 +16,19 @@ export default class Dropdown extends Component {
         }
     }
 
-    renderContent() {
-        if(this.props.collapsed === false) {
-            return(
-                <View></View>
-            );
-        } else {
-            return(
-                <View/>
-            );
-        }
-    }
-
     render() {
         return(
             <View>
                 <TouchableOpacity>
                     <View style={styles.dropdown}>
-                        <View style={{flex: 1, alignItems: "flex-start"}}>
-                            <Text style={{fontSize: 16}}>{this.props.name}</Text>
+                        <View style={styles.nameSection}>
+                            <Text style={styles.title}>{this.props.name}</Text>
                         </View>
-                        <View style={{flex: 1, alignItems: "flex-end"}}>
+                        <View style={styles.iconSection}>
                             {this.renderIcon()}
                         </View>
                     </View>
                 </TouchableOpacity>
-                {this.renderContent()}
             </View>
         );
     }
@@ -51,11 +38,21 @@ const styles = StyleSheet.create({
     dropdown: {
         flexDirection: "row",
         alignItems: "center",
-        padding: 10,
-        backgroundColor: Colors.quaternaryColor
+        padding: 12,
+        backgroundColor: Colors.quaternaryColor,
+        borderColor: Colors.gray,
+        borderBottomWidth: 1
     },
-    dropdownName: {
-        
+    nameSection: {
+        flex: 1, 
+        alignItems: "flex-start"
+    },
+    title: {
+        fontSize: 16,
+    },
+    iconSection: {
+        flex: 1, 
+        alignItems: "flex-end"
     },
     dropdownIcon: {
         flex: 1,
