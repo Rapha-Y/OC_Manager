@@ -14,7 +14,7 @@ export default class Header extends Component {
                 <View style={{flex: 1, alignItems: 'flex-start'}}>
                     <Icon name="md-arrow-back" size={30} color="white" style={{paddingLeft: 15}}></Icon>
                 </View>
-                <View style={{flex: 1, alignItems: 'center'}}>
+                <View style={{flex: 5, alignItems: 'center'}}>
                     <Text style={{color: "white", fontWeight: "bold", fontSize: 18}}>
                         {this.props.name}
                     </Text>

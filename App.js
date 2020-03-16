@@ -76,7 +76,7 @@ export default createAppContainer(
       App: AppContainer,
       Auth: AuthStack,
 
-      CurrentTest: Profile //delete later
+      CurrentTest: Character //delete later
     },
     {
       initialRouteName: "CurrentTest"
