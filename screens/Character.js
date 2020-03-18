@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import Header from '../components/Header';
 import Dropdown from '../components/Dropdown';
 import Summary from '../components/Summary';
 import CharSection from '../components/CharSection';
+import Story from '../components/Story';
 
 const characterInfo = {
     summary: {
@@ -81,18 +82,18 @@ const characterInfo = {
             content: ["Air (Torso)", "Air (Legs)"]
         },
         {
-            title: "Accesories",
+            title: "Accessories",
             content: ["Literally nothing"]
         }
     ],
     story: [
         {
             title: "Past",
-            content: "Frankly, at this points I don't care."
+            content: "My name is Yoshikage Kira. I'm 33 years old. My house is in the northeast section of Morioh, where all the villas are, and I am not married. I work as an employee for the Kame Yu department stores, and I get home every day by 8 PM at the latest. I don't smoke, but I occasionally drink.\n\nI'm in bed by 11 PM, and make sure I get eight hours of sleep, no matter what. After having a glass of warm milk and doing about twenty minutes of stretches before going to bed, I usually have no problems sleeping until morning. Just like a baby, I wake up without any fatigue or stress in the morning. I was told there were no issues at my last check-up.\n\nI'm trying to explain that I'm a person who wishes to live a very quiet life. I take care not to trouble myself with any enemies, like winning and losing, that would cause me to lose sleep at night. That is how I deal with society, and I know that is what brings me happiness. Although, if I were to fight I wouldn't lose to anyone."
         },
         {
             title: "Present",
-            content: "Lemme finish this stupid sample object, omg."
+            content: "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Seals, and I’ve been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I’m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet?\n\nThink again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands.\n\nNot only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it.\n\nYou’re fucking dead, kiddo."
         }
     ],
     relationships: [
@@ -119,38 +120,45 @@ export default class Character extends Component {
                 <Dropdown 
                     name="Summary" 
                     collapsed={false}
-                    data={characterInfo.summary}
+                    content={
+                        <Summary data={characterInfo.summary} />
+                    }
                 />
-                <Summary data={characterInfo.summary} />
                 <Dropdown 
                     name="Traits" 
-                    collapsed={false}
-                    data={characterInfo.traits}
+                    collapsed={true}
+                    content={
+                        <CharSection data={characterInfo.traits} />
+                    }
                 />
-                <CharSection data={characterInfo.traits} />
                 <Dropdown 
                     name="Skills" 
-                    collapsed={false}
-                    data={characterInfo.skills}
+                    collapsed={true}
+                    content={
+                        <CharSection data={characterInfo.skills} />
+                    }
                 />
-                <CharSection data={characterInfo.skills} />
                 <Dropdown 
                     name="Appearance" 
-                    collapsed={false}
-                    data={characterInfo.appearance}
+                    collapsed={true}
+                    content={
+                        <CharSection data={characterInfo.appearance} />
+                    }
                 />
-                <CharSection data={characterInfo.appearance} />
                 <Dropdown 
                     name="Story" 
-                    collapsed={false}
-                    data={characterInfo.story}
+                    collapsed={true}
+                    content={
+                        <Story data={characterInfo.story} />
+                    }
                 />
                 <Dropdown 
                     name="Relationships" 
-                    collapsed={false}
-                    data={characterInfo.relationships}
+                    collapsed={true}
+                    content={
+                        <CharSection data={characterInfo.relationships} />
+                    }
                 />
-                <CharSection data={characterInfo.relationships} />
             </ScrollView>
         );
     }
