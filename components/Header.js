@@ -1,28 +1,75 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class Header extends Component {
     render() {
         return(
-            <View style={{
-                flexDirection: "row", 
-                alignItems: "center", 
-                height: 50, 
-                backgroundColor: "rgb(89, 47, 147)"
-            }}>
-                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                    <Icon name="md-arrow-back" size={30} color="white" style={{paddingLeft: 15}}></Icon>
+            <View style={styles.wrapper}>
+                <View style={styles.backSection}>
+                    <TouchableOpacity 
+                        onPress={
+                            () => {Alert.alert("Back", "I'm supposed to take you back")}
+                        }
+                    >
+                        <Icon name="md-arrow-back" size={30} color="white" style={styles.backIcon}/>
+                    </TouchableOpacity>
                 </View>
-                <View style={{flex: 5, alignItems: 'center'}}>
-                    <Text style={{color: "white", fontWeight: "bold", fontSize: 18}}>
+                <View style={styles.titleSection}>
+                    <Text style={styles.title}>
                         {this.props.name}
                     </Text>
                 </View>
-                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <Icon name="md-share-alt" size={30} color="white" style={{paddingRight: 15}}></Icon>
+                <View style={styles.moreSection}>
+                    <TouchableOpacity
+                        onPress={
+                            () => {Alert.alert("More", "I'm supposed to have important options")}
+                        }
+                    >
+                        <Icon name="md-more" size={30} color="white" style={styles.moreIcon}></Icon>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        flexDirection: "row", 
+        alignItems: "center", 
+        height: 50, 
+        backgroundColor: "rgb(89, 47, 147)"
+    },
+    backSection: {
+        flex: 1, 
+        alignItems: 'flex-start',
+        height: "100%",
+        justifyContent: "center",
+    },
+    backIcon: {
+        padding: 10,
+        paddingHorizontal: 15
+    },
+    titleSection: {
+        flex: 5, 
+        alignItems: 'center',
+        height: "100%",
+        justifyContent: "center"
+    },
+    title: {
+        color: "white", 
+        fontWeight: "bold", 
+        fontSize: 18
+    },
+    moreSection: {
+        flex: 1, 
+        alignItems: 'flex-end',
+        height: "100%",
+        justifyContent: "center"
+    },
+    moreIcon: {
+        padding: 10,
+        paddingHorizontal: 20
+    }
+});
