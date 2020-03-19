@@ -13,7 +13,7 @@ const userInfo = {
     description: "What? You’ve never seen a street kid riding a top secret military grade walking death machine before? You must live in a hole.",
     characters: 5,
     followers: 12,
-    likes: 1000
+    likes: 150000
 }
 
 export default class Profile extends Component {

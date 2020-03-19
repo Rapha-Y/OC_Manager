@@ -2,11 +2,11 @@
 
 export default function NumShortener(number) {
     if(number > Math.pow(10, 9)-1) {
-        return(Math.round(number/Math.pow(10, 9)) + "B");
+        return(Math.floor(number/Math.pow(10, 9)) + "B");
     } else if (number > Math.pow(10, 6)-1) {
-        return(Math.round(number/Math.pow(10, 6)) + "M");
+        return(Math.floor(number/Math.pow(10, 6)) + "M");
     } else if (number > Math.pow(10, 3)-1) {
-        return(Math.round(number/Math.pow(10, 3)) + "K");
+        return(Math.floor(number/Math.pow(10, 3)) + "K");
     } else {
         return number;
     }
