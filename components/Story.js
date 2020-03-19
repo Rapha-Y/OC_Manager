@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     wrapper: {
         padding: 12,
         paddingBottom: 0,
-        backgroundColor: Colors.gray,
-        borderColor: Colors.gray,
+        backgroundColor: Colors.defaultGray,
+        borderColor: Colors.defaultGray,
         borderBottomWidth: 2
     },
     section: {

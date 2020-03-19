@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Colors from '../resources/Colors';
 
 export default class Header extends Component {
     render() {
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
         flexDirection: "row", 
         alignItems: "center", 
         height: 50, 
-        backgroundColor: "rgb(89, 47, 147)"
+        backgroundColor: Colors.purple
     },
     backSection: {
         flex: 1, 

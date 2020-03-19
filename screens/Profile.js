@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     tag: {
         fontWeight: "bold",
-        color: "rgb(141, 141, 142)"
+        color: Colors.darkGray
     },
     description: {
         paddingTop: 12

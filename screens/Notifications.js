@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 export default class Notifications extends Component {
     render() {
         return(
-            <View></View>
+            <View>
+                <Text>
+                    Notifications
+                </Text>
+            </View>
         );
     }
 }

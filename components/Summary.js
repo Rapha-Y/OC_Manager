@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     content: {
         flexDirection: "row",
         padding: 12,
-        backgroundColor: Colors.gray,
-        borderColor: Colors.gray,
+        backgroundColor: Colors.defaultGray,
+        borderColor: Colors.defaultGray,
         borderBottomWidth: 2
     },
     textSection: {
