@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     description: {
         paddingTop: 12,
-        textAlign: "justify",
+        textAlign: "justify"
     },
     imageSection: {
         flex: 1,
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     avatar: {
         width: 80, 
         height: 80,
-        borderRadius: 10,
+        borderRadius: 10
     }
 });
