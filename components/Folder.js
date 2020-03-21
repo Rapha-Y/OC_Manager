@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { ScrollView } from 'react-native';
 import Header from '../components/Header';
-import Colors from '../resources/Colors';
+import Dropdown from '../components/Dropdown';
+import CreationList from './CreationList';
 
 export default class Folder extends Component {
     state = {
@@ -16,107 +16,33 @@ export default class Folder extends Component {
             return elem.type == "document"
         })
     }
-
-    renderItem(item) {
-        if(item.type === "character") {
-            return(
-                <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Char")}>
-                        <View style={styles.iconSection}>
-                            <Image 
-                                source={{uri: item.content.summary.icon}} 
-                                style={styles.image} 
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.name}>{item.content.summary.name}</Text>
-                </View>
-            );
-        } else if (item.type === "folder") {
-            return(
-                <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Folder")}>
-                        <View style={styles.iconSection}>
-                            <Icon 
-                                name="md-folder" 
-                                color={Colors.darkGray} 
-                                size={80}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.name}>{item.content.name}</Text>
-                </View>
-            );
-        } else if(item.type === "document") {
-            return(
-                <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Doc")}>
-                        <View style={styles.iconSection}>
-                            <Icon 
-                                name="md-document" 
-                                color={Colors.darkGray} 
-                                size={80}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.name}>{item.content.name}</Text>
-                </View>
-            );
-        } else {
-            return(
-                <View>
-                    <Text>Add something like an error here.</Text>
-                </View>
-            );
-        }
-    }
     
     render() {
         return(
-            <View>
+            <ScrollView>
                 <Header name={this.props.name}/>
-                <FlatList
-                    horizontal={true}
-                    data={this.state.folders}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => this.renderItem(item)}
+                <Dropdown 
+                    name="Characters"
+                    collapsed={false}
+                    content={
+                        <CreationList data={this.state.characters} />
+                    }
                 />
-                <FlatList
-                    horizontal={true}
-                    data={this.state.characters}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => this.renderItem(item)}
-                />
-                <FlatList
-                    horizontal={true}
-                    data={this.state.documents}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => this.renderItem(item)}
-                />
-            </View>
+                <Dropdown 
+                    name="Documents"
+                    collapsed={true}
+                    content={
+                        <CreationList data={this.state.documents} />
+                    }
+                />   
+                <Dropdown 
+                    name="Folders"
+                    collapsed={true}
+                    content={
+                        <CreationList data={this.state.folders} />
+                    }
+                />     
+            </ScrollView>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    item: {
-        alignItems: "center",
-        backgroundColor: Colors.defaultGray,
-        flex: 1,
-        paddingTop: 5,
-        paddingHorizontal: 5
-    },
-    iconSection: {
-        borderWidth: 2,
-        borderColor: "blue",
-        width: 84,
-        height: 84,
-        alignItems: "center"
-    },
-    image: {
-        alignSelf: "center",
-        height: 80,
-        width: 80,
-        borderRadius: 10,
-    }
-});

@@ -189,7 +189,7 @@ var info = [
 export default class Creations extends Component {
     render() {
         return(
-            <View style={{marginBottom: 100}}>
+            <View>
                 <Folder 
                     name="My Creations"
                     data={info}
