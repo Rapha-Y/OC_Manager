@@ -4,6 +4,7 @@ import CreationListItem from '../components/CreationListItem';
 
 export default class CreationList extends Component {
     state = {
+        navigation: this.props.navigation,
         data: this.breakData(this.props.data, 3)
     }
 
@@ -52,6 +53,7 @@ export default class CreationList extends Component {
                     <View key={key} style={styles.row}>
                         {item.map((subItem, subKey) => (
                             <CreationListItem
+                                navigation={this.state.navigation}
                                 key={subKey}
                                 type={subItem.type}
                                 content={subItem.content}

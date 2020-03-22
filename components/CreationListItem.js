@@ -5,6 +5,7 @@ import Colors from '../resources/Colors';
 
 export default class CreationListItem extends Component {
     state = {
+        navigation: this.props.navigation,
         type: this.props.type,
         content: this.props.content,
     }
@@ -13,7 +14,7 @@ export default class CreationListItem extends Component {
         if(this.state.type === "character") {
             return(
                 <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Char")}>
+                    <TouchableOpacity onPress={() => this.state.navigation.navigate("Character")}>
                         <View style={styles.iconSection}>
                             <Image 
                                 source={{uri: this.state.content.summary.icon}} 

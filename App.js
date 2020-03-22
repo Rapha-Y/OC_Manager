@@ -88,7 +88,8 @@ class AppContainer extends Component {
     return(
       <NavigationContainer>
         <Stack.Navigator headerMode={"none"}>
-          <Stack.Screen name="default" component={BottomTabs}/>
+          <Stack.Screen name="default" component={BottomTabs} />
+          <Stack.Screen name="Character" component={Character} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -100,7 +101,7 @@ class AuthStack extends Component {
     return(
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -6,6 +6,7 @@ import CreationList from './CreationList';
 
 export default class Folder extends Component {
     state = {
+        navigation: this.props.navigation,
         folders: this.props.data.filter(function (elem) {
             return elem.type == "folder"
         }),
@@ -25,7 +26,7 @@ export default class Folder extends Component {
                     name="Characters"
                     collapsed={false}
                     content={
-                        <CreationList data={this.state.characters} />
+                        <CreationList data={this.state.characters} navigation={this.state.navigation}/>
                     }
                 />
                 <Dropdown 

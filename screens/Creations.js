@@ -187,10 +187,15 @@ var info = [
 ]
 
 export default class Creations extends Component {
+    state = {
+        navigation: this.props.navigation
+    }
+
     render() {
         return(
             <View>
                 <Folder 
+                    navigation={this.state.navigation}
                     name="My Creations"
                     data={info}
                 />
