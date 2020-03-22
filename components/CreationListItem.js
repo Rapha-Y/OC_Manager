@@ -14,7 +14,9 @@ export default class CreationListItem extends Component {
         if(this.state.type === "character") {
             return(
                 <View style={styles.item}>
-                    <TouchableOpacity onPress={() => this.state.navigation.navigate("Character")}>
+                    <TouchableOpacity onPress={
+                        () => this.state.navigation.navigate("Character", { data: this.state.content })
+                    }>
                         <View style={styles.iconSection}>
                             <Image 
                                 source={{uri: this.state.content.summary.icon}} 
