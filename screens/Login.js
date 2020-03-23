@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
 
-import Colors from "../resources/Colors.js";
-import Logo from "../components/Logo.js";
-import UserInput from "../components/UserInput.js";
-import UserSubmit from "../components/UserSubmit.js";
-import { ThemeColors } from 'react-navigation';
+import Colors from "../resources/Colors";
+import UserInput from "../components/UserInput";
+import UserSubmit from "../components/UserSubmit";
 
 export default class Login extends Component {
     state = {
@@ -28,7 +26,10 @@ export default class Login extends Component {
         return(
             <View style={styles.page}>
                 <View style={styles.logoContainer}>
-                    <Logo size={120}/>
+                    <Image 
+                        style={styles.logo} 
+                        source={require('../resources/Placeholder.png')}
+                    />
                 </View>
                 <View style={styles.inputContainer}>
                     <UserInput 
@@ -37,6 +38,7 @@ export default class Login extends Component {
                         keyboardType="email-address"
                         placeholder="E-mail"
                         secureTextEntry={false}
+                        icon="md-mail"
                     />
                     <UserInput 
                         autoCapitalize="none"
@@ -44,13 +46,34 @@ export default class Login extends Component {
                         keyboardType="default"
                         placeholder="Password"
                         secureTextEntry={true}
+                        icon="md-lock"
                     />
-                    <UserSubmit 
-                        submit={() => this.login()}
-                        text="Log In"
-                    />
+                    <View style={styles.submit}>
+                        <UserSubmit 
+                            submit={() => this.login()}
+                            text="Log In"
+                            style={styles.loginButton}
+                        />
+                    </View>
+                    <View style={styles.textButton}>
+                        <TouchableOpacity onPress={() => Alert.alert("Not yet functional")}>
+                            <Text style={styles.textLink}>
+                                Forgot password?
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                     <View>
                         {this.state.errorMessage && <Text>{this.state.errorMessage}</Text>}
+                    </View>
+                </View>
+                <View style={styles.bottomSection}>
+                    <View style={{flexDirection: "row"}}>
+                        <Text>Don't have an account? </Text>
+                        <View style={styles.textButton}>
+                            <TouchableOpacity onPress={() => Alert.alert("Not yet functional")}>
+                                <Text style={styles.textLink}>Sign Up</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -60,16 +83,33 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     page: {
-        backgroundColor: Colors.secondaryColor,
-
-        flex: 1,
-        alignItems: "center",
+        backgroundColor: Colors.white,
+        height: "100%",
+        alignItems: "center"
     },
-
     logoContainer: {
         marginVertical: "15%",
+    },
+    logo: {
+        width: 250
     },
     inputContainer: {
         width: "80%",
     },
+    submit: {
+        marginTop: 20
+    },
+    textButton: {
+        alignItems: "center",
+    },
+    textLink: {
+        color: Colors.purple,
+    },
+    bottomSection: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingBottom: 20
+    }
 });

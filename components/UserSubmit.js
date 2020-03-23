@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import Colors from "../resources/Colors.js";
+import Colors from "../resources/Colors";
 
 export default class UserSubmit extends Component {
     render() {
@@ -19,17 +19,17 @@ export default class UserSubmit extends Component {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: Colors.tertiaryColor,
+        backgroundColor: Colors.purple,
         height: 50,
         width: "100%",
         marginBottom: 15,
-        borderRadius: 50/2,
+        borderRadius: 10,
 
         alignItems: "center",
         justifyContent: "center",
     },
 
     buttonText: {
-        color: Colors.quaternaryColor,
+        color: Colors.white,
     },
 });
