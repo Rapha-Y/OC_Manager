@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Header from '../components/Header';
 import Dropdown from '../components/Dropdown';
 import CreationList from './CreationList';
@@ -20,30 +20,32 @@ export default class Folder extends Component {
     
     render() {
         return(
-            <ScrollView>
+            <View style={{marginBottom: 100}}>
                 <Header name={this.props.name}/>
-                <Dropdown 
-                    name="Characters"
-                    collapsed={false}
-                    content={
-                        <CreationList data={this.state.characters} navigation={this.state.navigation}/>
-                    }
-                />
-                <Dropdown 
-                    name="Documents"
-                    collapsed={true}
-                    content={
-                        <CreationList data={this.state.documents} />
-                    }
-                />   
-                <Dropdown 
-                    name="Folders"
-                    collapsed={true}
-                    content={
-                        <CreationList data={this.state.folders} />
-                    }
-                />     
-            </ScrollView>
+                <ScrollView>
+                    <Dropdown 
+                        name="Characters"
+                        collapsed={false}
+                        content={
+                            <CreationList data={this.state.characters} navigation={this.state.navigation}/>
+                        }
+                    />
+                    <Dropdown 
+                        name="Documents"
+                        collapsed={true}
+                        content={
+                            <CreationList data={this.state.documents} />
+                        }
+                    />   
+                    <Dropdown 
+                        name="Folders"
+                        collapsed={true}
+                        content={
+                            <CreationList data={this.state.folders} />
+                        }
+                    />     
+                </ScrollView>
+            </View>
         );
     }
 }

@@ -182,6 +182,12 @@ var info = [
         content: {
             name: "Jugemu",
             text: "Jugemu jugemu,\ngoko no surikire,\nkaijari suigyo no suigyomatsu,\nunraimatsu, furaimatsu,\nku neru tokoro ni sumu tokoro,\nyabura koji no bura koji,\npaipo paipo, paipo no shuringan,\nshuringan no gurindai, gurindai no\nponpokopi no ponpokona no, chokyumei no\nchosuke."
+        },
+    },
+    {
+        type: "folder",
+        content: {
+            name: "Test"
         }
     }
 ]

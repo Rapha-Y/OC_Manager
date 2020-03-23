@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Button } from 'react-native';
+import { ScrollView } from 'react-native';
 import Header from '../components/Header';
 import Dropdown from '../components/Dropdown';
 import Summary from '../components/Summary';
