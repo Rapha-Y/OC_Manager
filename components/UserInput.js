@@ -25,7 +25,7 @@ export default class UserInput extends Component {
                         placeholder={this.props.placeholder}
                         secureTextEntry={this.props.secureTextEntry}
                         style={styles.inputField}
-                        value={this.state.value} 
+                        value={this.state.value}
                     />
                 </View>
             );

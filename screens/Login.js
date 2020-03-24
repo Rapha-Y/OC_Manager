@@ -70,7 +70,7 @@ export default class Login extends Component {
                     <View style={{flexDirection: "row"}}>
                         <Text>Don't have an account? </Text>
                         <View style={styles.textButton}>
-                            <TouchableOpacity onPress={() => Alert.alert("Not yet functional")}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate("Signin")}>
                                 <Text style={styles.textLink}>Sign Up</Text>
                             </TouchableOpacity>
                         </View>

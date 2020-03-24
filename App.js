@@ -102,6 +102,7 @@ class AuthStack extends Component {
       <NavigationContainer>
         <Stack.Navigator headerMode={"none"}>
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Signin" component={Signin} />
         </Stack.Navigator>
       </NavigationContainer>
     );
