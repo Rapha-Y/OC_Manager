@@ -1,0 +1,71 @@
+{
+    "users": [
+        {
+            "uid": "55b800d1-a2ed-4747-95bf-d40892f27e1c",
+            "date": 1585182397997,
+            "username": "Anni",
+            "usertag": "AnniZeppeli",
+            "email": "annihilator.709@gmail.com",
+            "password": "password",
+            "avatar": "https://tinyurl.com/yxx7mgxg",
+            "bio": "Spiral staircase, rhinoceros beetle, desolation row, fig tart, rhinoceros beetle, via dolorosa, rhinoceros beetle, singularity point, giotto, angel, hydrangea, rhinoceros beetle, singularity point, secret emperor.",
+            "followers": [
+                "e432a2b5-7ebb-4b03-9774-262b8413c5fa"
+            ],
+            "characters": [
+
+            ],
+            "folders": [
+
+            ],
+            "lores": [
+
+            ]
+        },
+        {
+            "uid": "740187ec-8ac1-4ddf-9650-2638416f2911",
+            "date": 1585182415539,
+            "username": "Panko",
+            "usertag": "PinkiePie",
+            "email": "mlpinkie.aaaa@gmail.com",
+            "password": "aaaaaaaa",
+            "avatar": "https://tinyurl.com/qnen3hk",
+            "bio": "You know of all the people I dream of living with me, I didn't expect Anni to be the first one gone. Kokojo is my best friend now",
+            "followers": [
+                "55b800d1-a2ed-4747-95bf-d40892f27e1c"
+            ],
+            "characters": [
+
+            ],
+            "folders": [
+
+            ],
+            "lores": [
+
+            ]
+        },
+        {
+            "uid": "e432a2b5-7ebb-4b03-9774-262b8413c5fa",
+            "date": 1585182421984,
+            "username": "Kokojo",
+            "usertag": "APotato",
+            "email": "kokokokokojo@gmail.com",
+            "password": "amigato",
+            "avatar": "https://tinyurl.com/w6nx5xs",
+            "bio": "was given an assignment to make a blog. will make a blog about cursed animal facts. did u know echidnas have a four-headed p",
+            "followers": [
+                "55b800d1-a2ed-4747-95bf-d40892f27e1c",
+                "740187ec-8ac1-4ddf-9650-2638416f2911"
+            ],
+            "characters": [
+
+            ],
+            "folders": [
+
+            ],
+            "lores": [
+
+            ]
+        }
+    ]
+}

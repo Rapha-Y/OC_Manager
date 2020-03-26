@@ -9,3 +9,9 @@ Project stages:
 3. Create additional features - Chat, notifications, settings, etc.
 
 For study and showcase of skills, only the first and second stages are necessary, the third is only to be developed if it's decided that the project is gonna be taken seriously and published.
+
+For stages 1 and 2, the following ER diagram is to be followed:
+
+![ER Diagram](https://i.imgur.com/ZuT2znY.png)
+
+During the first stage, not only will the core screens and components be made, but dummy data will be used to simulate the database and guarantee things will be working.
