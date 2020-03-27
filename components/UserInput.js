@@ -26,6 +26,10 @@ export default class UserInput extends Component {
                         secureTextEntry={this.props.secureTextEntry}
                         style={styles.inputField}
                         value={this.state.value}
+
+                        ref={this.props.reference}
+                        onSubmitEditing={this.props.onSubmitEditing}
+                        blurOnSubmit={this.blurOnSubmit}
                     />
                 </View>
             );
@@ -45,6 +49,10 @@ export default class UserInput extends Component {
                         secureTextEntry={this.props.secureTextEntry}
                         style={styles.inputField}
                         value={this.state.value} 
+
+                        ref={this.props.reference}
+                        onSubmitEditing={this.props.onSubmitEditing}
+                        blurOnSubmit={this.blurOnSubmit}
                     />
                 </View>
             );

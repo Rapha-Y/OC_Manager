@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import * as firebase from 'firebase';
+import Fire from '../Fire';
 
 import Colors from "../resources/Colors";
 import UserInput from "../components/UserInput";
@@ -11,6 +12,17 @@ export default class Login extends Component {
         email: "",
         password: "",
         errorMessage: null
+    };
+
+    //temporary
+    tempLogin = () => {
+        var response = Fire.shared.tempLogin(this.state.email, this.state.password);
+        
+        if(response.error) {
+            Alert.alert("Authentication Error", response.content);
+        } else {
+            Alert.alert("Log In", response.content);
+        }
     };
 
     login = () => {
@@ -50,7 +62,7 @@ export default class Login extends Component {
                     />
                     <View style={styles.submit}>
                         <UserSubmit 
-                            submit={() => this.login()}
+                            submit={() => this.tempLogin()}
                             text="Log In"
                             style={styles.loginButton}
                         />
@@ -83,8 +95,8 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     page: {
+        flex: 1,
         backgroundColor: Colors.white,
-        height: "100%",
         alignItems: "center"
     },
     logoContainer: {

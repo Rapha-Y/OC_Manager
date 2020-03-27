@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../components/Header';
 import UserInput from '../components/UserInput';
@@ -41,56 +42,83 @@ export default class Signin extends Component {
         return(
             <View style={styles.wrapper}>
                 <Header name="Sign Up"/>
-                <View style={styles.avatarArea}>
-                    <View style={styles.avatarContainer}>
-                        <Icon
-                            name="md-add"
-                            color={Colors.white}
-                            size={50}
-                        />
+                <KeyboardAwareScrollView
+                    style={styles.body}
+                    contentContainerStyle={{alignItems: "center"}}
+                >
+                    <View style={styles.avatarArea}>
+                        <View style={styles.avatarContainer}>
+                            <Icon
+                                name="md-add"
+                                color={Colors.white}
+                                size={50}
+                            />
+                        </View>
                     </View>
-                </View>
-                <View style={styles.inputContainer}>
-                    <UserInput 
-                        autoCapitalize="none"
-                        getValue={(username) => {this.setState({ username })}}
-                        keyboardType="default"
-                        placeholder="Username"
-                        secureTextEntry={false}
-                        icon="md-person"
-                    />
-                    <UserInput 
-                        autoCapitalize="none"
-                        getValue={(email) => {this.setState({ email })}}
-                        keyboardType="email-address"
-                        placeholder="E-mail"
-                        secureTextEntry={false}
-                        icon="md-mail"
-                    />
-                    <UserInput 
-                        autoCapitalize="none"
-                        getValue={(password) => this.setState({ password })}
-                        keyboardType="default"
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        icon="md-lock"
-                    />
-                    <UserInput 
-                        autoCapitalize="none"
-                        getValue={(passwordConfirm) => this.setState({ passwordConfirm })}
-                        keyboardType="default"
-                        placeholder="Password Confirmation"
-                        secureTextEntry={true}
-                        icon="md-lock"
-                    />
-                    <View style={styles.submit}>
-                        <UserSubmit 
-                            submit={this.signin}
-                            text="Log In"
-                            style={styles.loginButton}
+                    <View style={styles.inputContainer}>
+                        <UserInput 
+                            autoCapitalize="none"
+                            getValue={(username) => {this.setState({ username })}}
+                            keyboardType="default"
+                            placeholder="Username"
+                            secureTextEntry={false}
+                            icon="md-person"
+
+                            reference={(input) => { this.usernameField = input }}
+                            onSubmitEditing={() => { this.emailField.focus(); }}
+                            blurOnSubmit={false}
                         />
+                        <UserInput 
+                            autoCapitalize="none"
+                            getValue={(email) => {this.setState({ email })}}
+                            keyboardType="email-address"
+                            placeholder="E-mail"
+                            secureTextEntry={false}
+                            icon="md-mail"
+
+                            reference={(input) => { this.emailField = input }}
+                            onSubmitEditing={() => { this.passwordField.focus(); }}
+                            blurOnSubmit={false}
+                        />
+                        <UserInput 
+                            autoCapitalize="none"
+                            getValue={(password) => this.setState({ password })}
+                            keyboardType="default"
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            icon="md-lock"
+
+                            reference={(input) => { this.passwordField = input }}
+                            onSubmitEditing={() => { this.passwordConfirmField.focus(); }}
+                            blurOnSubmit={false}
+                        />
+                        <UserInput 
+                            autoCapitalize="none"
+                            getValue={(passwordConfirm) => this.setState({ passwordConfirm })}
+                            keyboardType="default"
+                            placeholder="Password Confirmation"
+                            secureTextEntry={true}
+                            icon="md-lock"
+
+                            reference={(input) => { this.passwordConfirmField = input }}
+                            onSubmitEditing={() => {}}
+                            blurOnSubmit={true}
+                        />
+                        <View style={styles.submit}>
+                            <UserSubmit 
+                                submit={this.signin}
+                                text="Log In"
+                                style={styles.loginButton}
+                            />
+                        </View>
                     </View>
-                </View>
+                    {/*
+                        Code below makes the screen not "shake" every time the next input field gets 
+                        automatically selected, but if no components are added in it, it'd be good to have 
+                        at least some illustration, to make it not feel pointless to scroll to the bottom
+                    */}
+                    <View style={{height: 160}}/> 
+                </KeyboardAwareScrollView>
             </View>
         );
     }
@@ -101,6 +129,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: Colors.white
+    },
+    body: {
+        backgroundColor: Colors.white, 
+        width: "100%"
     },
     avatarArea: {
         marginTop: "10%",
