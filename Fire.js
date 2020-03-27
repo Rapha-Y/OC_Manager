@@ -4,10 +4,10 @@ import 'firebase/firestore';
 import { decode, encode } from 'base-64';
 
 //temporary data
-import users from './testData/users';
-import characters from './testData/characters';
-import folders from './testData/folders';
-import lores from './testData/lores';
+import Users from './testData/users';
+import Characters from './testData/characters';
+import Folders from './testData/folders';
+import Lores from './testData/lores';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -44,6 +44,37 @@ class Fire {
             error: false,
             content: auth_user[0].uid
         }
+    }
+
+    getUser(uid) {
+        var usersFile = Users.users;
+
+        var user = usersFile.filter(function (usr) {
+            return usr.uid == uid;
+        });
+
+        return user[0];
+    }
+
+    getRootFolder(uid) {
+        var usersFile = Users.users;
+
+        var user = usersFile.filter(function (usr) {
+            return usr.uid == uid;
+        });
+
+        //var folders = user[0].folders;
+        var foldersFile = Folders.folders;
+
+        var folders = foldersFile.filter(function (fld) {
+            return user[0].folders.includes(fld.fid);
+        });
+
+        var root = folders.filter(function (fld) {
+            return fld.root == true;
+        });
+
+        return root[0];
     }
     //temp func end
 

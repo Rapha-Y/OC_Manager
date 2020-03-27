@@ -13,8 +13,8 @@ export default class Folder extends Component {
         characters: this.props.data.filter(function (elem) {
             return elem.type == "character"
         }),
-        documents: this.props.data.filter(function (elem) {
-            return elem.type == "document"
+        lores: this.props.data.filter(function (elem) {
+            return elem.type == "lore"
         })
     }
     
@@ -31,10 +31,10 @@ export default class Folder extends Component {
                         }
                     />
                     <Dropdown 
-                        name="Documents"
+                        name="Lores"
                         collapsed={true}
                         content={
-                            <CreationList data={this.state.documents} />
+                            <CreationList data={this.state.lores} />
                         }
                     />   
                     <Dropdown 

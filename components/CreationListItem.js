@@ -44,10 +44,10 @@ export default class CreationListItem extends Component {
                     <Text style={styles.name}>{this.state.content.name}</Text>
                 </View>
             );
-        } else if (this.state.type === "document") {
+        } else if (this.state.type === "lore") {
             return(
                 <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Doc")}>
+                    <TouchableOpacity onPress={() => Alert.alert("Lore")}>
                         <View style={styles.iconSection}>
                             <Icon 
                                 name="md-document" 

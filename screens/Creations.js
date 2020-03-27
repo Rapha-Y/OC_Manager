@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+
+import Fire from '../Fire';
+
 import Folder from '../components/Folder';
 
-var info = [
+/*var info = [
     {
         type: "character",
         content: {
@@ -178,7 +181,7 @@ var info = [
         }
     },
     {
-        type: "document",
+        type: "lore",
         content: {
             name: "Jugemu",
             text: "Jugemu jugemu,\ngoko no surikire,\nkaijari suigyo no suigyomatsu,\nunraimatsu, furaimatsu,\nku neru tokoro ni sumu tokoro,\nyabura koji no bura koji,\npaipo paipo, paipo no shuringan,\nshuringan no gurindai, gurindai no\nponpokopi no ponpokona no, chokyumei no\nchosuke."
@@ -190,11 +193,18 @@ var info = [
             name: "Test"
         }
     }
-]
+]*/
 
 export default class Creations extends Component {
     state = {
-        navigation: this.props.navigation
+        navigation: this.props.navigation,
+        root: {}
+    }
+
+    componentDidMount() {
+        const rootFolder = Fire.shared.getRootFolder("55b800d1-a2ed-4747-95bf-d40892f27e1c"); //replace with props.uid later
+        const root = rootFolder;
+        this.setState({ root });
     }
 
     render() {
@@ -202,8 +212,11 @@ export default class Creations extends Component {
             <View>
                 <Folder 
                     navigation={this.state.navigation}
-                    name="My Creations"
-                    data={info}
+                    name={this.state.root.name}
+                    characters={this.state.root.characters}
+                    lores={this.state.root.lores}
+                    folders={this.state.root.folders}
+                    data={[]}
                 />
             </View>
         );
