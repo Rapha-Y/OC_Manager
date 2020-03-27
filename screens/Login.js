@@ -51,6 +51,10 @@ export default class Login extends Component {
                         placeholder="E-mail"
                         secureTextEntry={false}
                         icon="md-mail"
+
+                        reference={(input) => { this.emailField = input }}
+                        onSubmitEditing={() => { this.passwordField.focus(); }}
+                        blurOnSubmit={false}
                     />
                     <UserInput 
                         autoCapitalize="none"
@@ -59,6 +63,10 @@ export default class Login extends Component {
                         placeholder="Password"
                         secureTextEntry={true}
                         icon="md-lock"
+
+                        reference={(input) => { this.passwordField = input }}
+                        onSubmitEditing={() => {}}
+                        blurOnSubmit={true}
                     />
                     <View style={styles.submit}>
                         <UserSubmit 
