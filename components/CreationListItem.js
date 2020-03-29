@@ -3,33 +3,47 @@ import { View, Image, Text, TouchableOpacity, Alert, StyleSheet } from 'react-na
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../resources/Colors';
 
+import Fire from '../Fire';
+
 export default class CreationListItem extends Component {
     state = {
-        type: this.props.type,
-        content: this.props.content,
+        data: this.getData(this.props.dataType, this.props.itemId),
         navigation: this.props.navigation
     }
 
+    getData(dataType, itemId) {
+        if(dataType == "character") {
+            return Fire.shared.getCharacter(itemId);
+        } else if (dataType == "lore") {
+            return Fire.shared.getLore(itemId);
+        } else if (dataType == "folder") {
+            console.log(Fire.shared.getFolder(itemId));
+            return Fire.shared.getFolder(itemId);
+        } else {
+            return [];
+        }
+    }
+
     render() {
-        if(this.state.type === "character") {
+        if(this.props.dataType === "character") {
             return(
                 <View style={styles.item}>
                         <TouchableOpacity onPress={
                             () => this.state.navigation.navigate("Character", { 
-                                data: this.state.content
+                                cid: this.state.data.cid
                             })
                         }>
                         <View style={styles.iconSection}>
                             <Image 
-                                source={{uri: this.state.content.summary.icon}} 
+                                source={{uri: this.state.data.picture}} 
                                 style={styles.image} 
                             />
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.name}>{this.state.content.summary.name}</Text>
+                    <Text style={styles.name}>{this.state.data.name}</Text>
                 </View>
             );
-        } else if (this.state.type === "folder") {
+        } else if (this.props.dataType === "folder") {
             return(
                 <View style={styles.item}>
                     <TouchableOpacity onPress={() => Alert.alert("Folder")}>
@@ -41,10 +55,10 @@ export default class CreationListItem extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.name}>{this.state.content.name}</Text>
+                    <Text style={styles.name}>{this.state.data.name}</Text>
                 </View>
             );
-        } else if (this.state.type === "lore") {
+        } else if (this.props.dataType === "lore") {
             return(
                 <View style={styles.item}>
                     <TouchableOpacity onPress={() => Alert.alert("Lore")}>
@@ -56,12 +70,14 @@ export default class CreationListItem extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <Text style={styles.name}>{this.state.content.name}</Text>
+                    <Text style={styles.name}>{this.state.data.name}</Text>
                 </View>
             );
         } else { //is filler
             return(
-                <View style={styles.item}/>
+                <View style={styles.item}>
+                    <Text>Am filler</Text>
+                </View>
             );
         }
     }

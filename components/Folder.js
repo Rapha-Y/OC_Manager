@@ -7,15 +7,16 @@ import CreationList from './CreationList';
 export default class Folder extends Component {
     state = {
         navigation: this.props.navigation,
-        folders: this.props.data.filter(function (elem) {
-            return elem.type == "folder"
-        }),
-        characters: this.props.data.filter(function (elem) {
-            return elem.type == "character"
-        }),
-        lores: this.props.data.filter(function (elem) {
-            return elem.type == "lore"
-        })
+        characters: this.props.characters,
+        lores: this.props.lores,
+        folders: this.props.folders
+    }
+
+    isEmpty(section) {
+        if(section.length == 0) {
+            return true;
+        }
+        return false;
     }
     
     render() {
@@ -24,26 +25,39 @@ export default class Folder extends Component {
                 <Header name={this.props.name}/>
                 <ScrollView>
                     <Dropdown 
+                        hidden={this.isEmpty(this.state.characters)}
                         name="Characters"
                         collapsed={false}
                         content={
-                            <CreationList data={this.state.characters} navigation={this.state.navigation}/>
+                            <CreationList 
+                                data={this.state.characters}
+                                dataType="character" 
+                                navigation={this.state.navigation}
+                            />
                         }
                     />
                     <Dropdown 
+                        hidden={this.isEmpty(this.state.lores)}
                         name="Lores"
-                        collapsed={true}
+                        collapsed={false}
                         content={
-                            <CreationList data={this.state.lores} />
+                            <CreationList 
+                                data={this.state.lores}
+                                dataType="lore" 
+                            />
                         }
                     />   
                     <Dropdown 
+                        hidden={this.isEmpty(this.state.folders)}
                         name="Folders"
-                        collapsed={true}
+                        collapsed={false}
                         content={
-                            <CreationList data={this.state.folders} />
+                            <CreationList 
+                                data={this.state.folders} 
+                                dataType="folder"    
+                            />
                         }
-                    />     
+                    />    
                 </ScrollView>
             </View>
         );

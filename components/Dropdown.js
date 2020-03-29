@@ -35,37 +35,43 @@ export default class Dropdown extends Component {
     }
 
     render() {
-        if(this.state.collapsed) {
+        if(this.props.hidden) {
             return (
-                <View>
-                    <TouchableOpacity onPress={() => {this.switchCollapsedState()}}>
-                        <View style={styles.dropdown}>
-                            <View style={styles.nameSection}>
-                                <Text style={styles.title}>{this.state.title}</Text>
-                            </View>
-                            <View style={styles.iconSection}>
-                                <Icon name="md-arrow-dropdown" size={18} />
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            );
+                <View/>
+            )
         } else {
-            return (
-                <View>
-                    <TouchableOpacity onPress={() => {this.switchCollapsedState()}}>
-                        <View style={styles.dropdown}>
-                            <View style={styles.nameSection}>
-                                <Text style={styles.title}>{this.state.title}</Text>
+            if(this.state.collapsed) {
+                return (
+                    <View>
+                        <TouchableOpacity onPress={() => {this.switchCollapsedState()}}>
+                            <View style={styles.dropdown}>
+                                <View style={styles.nameSection}>
+                                    <Text style={styles.title}>{this.state.title}</Text>
+                                </View>
+                                <View style={styles.iconSection}>
+                                    <Icon name="md-arrow-dropdown" size={18} />
+                                </View>
                             </View>
-                            <View style={styles.iconSection}>
-                                <Icon name="md-arrow-dropup" size={18} />
+                        </TouchableOpacity>
+                    </View>
+                );
+            } else {
+                return (
+                    <View>
+                        <TouchableOpacity onPress={() => {this.switchCollapsedState()}}>
+                            <View style={styles.dropdown}>
+                                <View style={styles.nameSection}>
+                                    <Text style={styles.title}>{this.state.title}</Text>
+                                </View>
+                                <View style={styles.iconSection}>
+                                    <Icon name="md-arrow-dropup" size={18} />
+                                </View>
                             </View>
-                        </View>
-                    </TouchableOpacity>
-                    {this.state.content}
-                </View>
-            );
+                        </TouchableOpacity>
+                        {this.state.content}
+                    </View>
+                );
+            }
         }
     }
 }

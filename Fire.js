@@ -56,6 +56,36 @@ class Fire {
         return user[0];
     }
 
+    getCharacter(cid) {
+        var charactersFile = Characters.characters;
+
+        var character = charactersFile.filter(function (char) {
+            return char.cid == cid;
+        });
+
+        return character[0];
+    }
+
+    getLore(lid) {
+        var loresFile = Lores.lores;
+
+        var lore = loresFile.filter(function (lre) {
+            return lre.lid == lid;
+        });
+
+        return lore[0];
+    }
+
+    getFolder(fid) {
+        var foldersFile = Folders.folders;
+
+        var folder = foldersFile.filter(function (fld) {
+            return fld.fid == fid;
+        });
+
+        return folder[0];
+    }
+
     getRootFolder(uid) {
         var usersFile = Users.users;
 

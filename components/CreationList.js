@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import CreationListItem from '../components/CreationListItem';
 
 export default class CreationList extends Component {
@@ -33,13 +33,13 @@ export default class CreationList extends Component {
         }
         //if the last row hasn't been pushed yet, fill the blank spaces and push it
         if(data.length%colNum != 0) {
-            while(j < colNum) {
+            /*while(j < colNum) {
                 innerList.push({
                     type: "filler",
                     content: {}
                 });
                 j++;
-            }
+            }*/
             brokenData.push(innerList);
         }
 
@@ -55,8 +55,8 @@ export default class CreationList extends Component {
                             <CreationListItem
                                 navigation={this.state.navigation}
                                 key={subKey}
-                                type={subItem.type}
-                                content={subItem.content}
+                                dataType={this.props.dataType}
+                                itemId={subItem}
                             />
                         ))}
                     </View>
