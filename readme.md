@@ -12,4 +12,4 @@ For study and showcase of skills, only the first and second stages are necessary
 
 For stages 1 and 2, the following ER diagram is to be followed:
 
-![ER Diagram](https://i.imgur.com/ZuT2znY.png)
+![ER Diagram](https://imgur.com/mmFKho1)

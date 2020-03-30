@@ -14,7 +14,8 @@ if(!global.atob) { global.atob = decode };
 
 class Fire {
 
-    //temporary functions
+    //temporary functions - the calls made to these functions are to be kept, but their way of handling
+    //data shall be updated to store/fetch data from firebase instead
     tempLogin(email, password) {
         var obj = users.users;
 
