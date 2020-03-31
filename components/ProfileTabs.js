@@ -17,13 +17,11 @@ class Creations extends Component {
 export default class ProfileTabs extends Component {
     render() {
         return (
-            <NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Creations" component={Creations} />
-                    <Tab.Screen name="Comments" component={Creations} />
-                    <Tab.Screen name="Details" component={Creations} />
-                </Tab.Navigator>
-            </NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen name="Creations" component={Creations} />
+                <Tab.Screen name="Comments" component={Creations} />
+                <Tab.Screen name="Details" component={Creations} />
+            </Tab.Navigator>
         );
     }
 }

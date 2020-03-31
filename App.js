@@ -8,13 +8,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import * as firebase from 'firebase';
 
 import Character from './screens/Character';
-import Chat from './screens/Chat';
 import Creations from './screens/Creations';
 import Feed from './screens/Feed';
+import Section from './components/Folder'; //rewrite component as screen and as section
 import Loading from './screens/Loading';
 import Login from './screens/Login';
-import Messages from './screens/Messages';
-import Notifications from './screens/Notifications';
+import Lore from './screens/Lore';
 import Profile from './screens/Profile';
 import Signin from './screens/Signin';
 import Colors from './resources/Colors';
@@ -26,6 +25,47 @@ if (!firebase.apps.length) {
 }
 
 const BotTab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+class FeedTab extends Component {
+  render() {
+    return(
+      <Stack.Navigator initialRouteName="Feed">
+        <Stack.Screen name="Feed" component={Feed} />
+        <Stack.Screen name="Character" component={Character} />
+        <Stack.Screen name="Lore" component={Lore} />
+        <Stack.Screen name="Section" component={Section} />
+        <Stack.Screen name="Profile" component={Profile} />
+      </Stack.Navigator>
+    );
+  }
+}
+
+class CreationsTab extends Component {
+  render() {
+    return(
+      <Stack.Navigator initialRouteName="Lore">
+        <Stack.Screen name="Character" component={Character} />
+        <Stack.Screen name="Lore" component={Lore} />
+        <Stack.Screen name="Section" component={Section} />
+        <Stack.Screen name="Profile" component={Profile} />
+      </Stack.Navigator>
+    );
+  }
+}
+
+class ProfileTab extends Component {
+  render() {
+    return(
+      <Stack.Navigator initialRouteName="Profile">
+        <Stack.Screen name="Character" component={Character} />
+        <Stack.Screen name="Lore" component={Lore} />
+        <Stack.Screen name="Section" component={Section} />
+        <Stack.Screen name="Profile" component={Profile} />
+      </Stack.Navigator>
+    );
+  }
+}
 
 class BottomTabs extends Component {
   render() {
@@ -38,7 +78,7 @@ class BottomTabs extends Component {
       >
         <BotTab.Screen 
           name="Feed"
-          component={Feed}
+          component={FeedTab}
           options={{
             tabBarLabel: "Feed",
             tabBarIcon: ({color, size}) => (
@@ -48,7 +88,7 @@ class BottomTabs extends Component {
         />
         <BotTab.Screen 
           name="Creations"
-          component={Creations}
+          component={CreationsTab}
           options={{
             tabBarLabel: "Creations",
             tabBarIcon: ({color, size}) => (
@@ -57,22 +97,12 @@ class BottomTabs extends Component {
           }}
         />
         <BotTab.Screen 
-          name="Messages"
-          component={Messages}
+          name="Profile"
+          component={ProfileTab}
           options={{
-            tabBarLabel: "Messages",
+            tabBarLabel: "Profile",
             tabBarIcon: ({color, size}) => (
-              <Icon name="md-chatboxes" color={color} size={size}/>
-            )
-          }}
-        />
-        <BotTab.Screen 
-          name="Notifications"
-          component={Notifications}
-          options={{
-            tabBarLabel: "Notifications",
-            tabBarIcon: ({color, size}) => (
-              <Icon name="md-notifications" color={color} size={size}/>
+              <Icon name="md-person" color={color} size={size}/>
             )
           }}
         />
@@ -81,15 +111,12 @@ class BottomTabs extends Component {
   }
 }
 
-const Stack = createStackNavigator();
-
 class AppContainer extends Component {
   render() {
     return(
       <NavigationContainer>
         <Stack.Navigator headerMode={"none"}>
           <Stack.Screen name="default" component={BottomTabs} />
-          <Stack.Screen name="Character" component={Character} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -123,30 +150,3 @@ export default createAppContainer(
     }
   )
 );
-
-/*
-Building Reference:
-
-App [Switch Navigator]
-  Loading (Screen)
-  Main [Bottom Tab Navigator]
-    "Feed" [Stack Navigator]
-      Feed (Screen)
-      Section (Screen)
-      Character (Screen)
-      Lore (Screen)
-      Profile (Screen)
-    Creation [Stack Navigator]
-      Section (Screen)
-      Character (Screen)
-      Lore (Screen)
-      Profile (Screen)
-    Profile [Stack Navigator]
-      Section (Screen)
-      Character (Screen)
-      Lore (Screen)
-      Profile (Screen)
-  Auth [Stack Navigator]
-    Login (Screen)
-    Signin (Screen)
-*/
