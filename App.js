@@ -123,3 +123,30 @@ export default createAppContainer(
     }
   )
 );
+
+/*
+Building Reference:
+
+App [Switch Navigator]
+  Loading (Screen)
+  Main [Bottom Tab Navigator]
+    "Feed" [Stack Navigator]
+      Feed (Screen)
+      Section (Screen)
+      Character (Screen)
+      Lore (Screen)
+      Profile (Screen)
+    Creation [Stack Navigator]
+      Section (Screen)
+      Character (Screen)
+      Lore (Screen)
+      Profile (Screen)
+    Profile [Stack Navigator]
+      Section (Screen)
+      Character (Screen)
+      Lore (Screen)
+      Profile (Screen)
+  Auth [Stack Navigator]
+    Login (Screen)
+    Signin (Screen)
+*/
