@@ -4,10 +4,7 @@ import 'firebase/firestore';
 import { decode, encode } from 'base-64';
 
 //temporary data
-import Users from './testData/users';
-import Characters from './testData/characters';
-import Folders from './testData/folders';
-import Lores from './testData/lores';
+import users from './testData/users';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -16,7 +13,7 @@ class Fire {
 
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
-    tempLogin(email, password) {
+    /*tempLogin(email, password) {
         var obj = users.users;
 
         var user = obj.filter(function (usr) {
@@ -106,6 +103,16 @@ class Fire {
         });
 
         return root[0];
+    }*/
+    emailExists(email) {
+        var user = users.filter(function (usr) {
+            return usr.email == email;
+        });
+        if(user.length != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
     //temp func end
 

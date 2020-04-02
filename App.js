@@ -10,8 +10,7 @@ import * as firebase from 'firebase';
 import Character from './screens/Character';
 import Creations from './screens/Creations';
 import Feed from './screens/Feed';
-import Section from './screens/Section'; //rewrite component as screen and as section
-import Loading from './screens/Loading';
+import Section from './screens/Section';
 import Login from './screens/Login';
 import Lore from './screens/Lore';
 import Profile from './screens/Profile';
@@ -139,14 +138,11 @@ class AuthStack extends Component {
 export default createAppContainer(
   createSwitchNavigator(
     {
-      Loading: Loading,
       App: AppContainer,
       Auth: AuthStack,
-
-      CurrentTest: Loading //delete later
     },
     {
-      initialRouteName: "CurrentTest"
+      initialRouteName: "Auth"
     }
   )
 );

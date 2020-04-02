@@ -1,13 +1,196 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AltIcon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../components/Header';
 import UserInput from '../components/UserInput';
 import UserSubmit from '../components/UserSubmit';
 import Colors from '../resources/Colors';
 
 import Fire from '../Fire';
+
+//change to switch-case later, also these errors only show messages - they must block login later
+function usernameError(username) {
+    if(username.length == 0) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    This field is mandatory
+                </Text>
+            </View>
+        );
+    } else if(!(/^\w+$/.test(username))) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Only letters, numbers and underscore are allowed
+                </Text>
+            </View>
+        );
+    } else if(username.length < 6) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Must have a minimum of 6 characters
+                </Text>
+            </View>
+        );
+    } else {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Your username is ok!
+                </Text>
+            </View>
+        );
+    }
+}
+
+function emailError(email) {
+    if(email.length == 0) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    This field is mandatory
+                </Text>
+            </View>
+        );
+    } if(Fire.shared.emailExists(email)) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    This e-mail is already in use
+                </Text>
+            </View>
+        );
+    } else {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Your e-mail is available!
+                </Text>
+            </View>
+        );
+    }
+}
+
+function passwordError(password) {
+    if(password.length == 0) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    This field is mandatory
+                </Text>
+            </View>
+        );
+    } else if(/^\s+$/.test(password)) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Spaces are not allowed
+                </Text>
+            </View>
+        );
+    } else if(!(/^[\x00-\x7F]*$/.test(password))) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Only ASCII characters
+                </Text>
+            </View>
+        );
+    } else if(password.length < 8) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Must have a minimum of 8 characters
+                </Text>
+            </View>
+        );
+    } else {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Your password is ok!
+                </Text>
+            </View>
+        );
+    }
+}
+
+function passwordConfirmError(password, passwordConfirm) {
+    if(password.length == 0) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    This field is mandatory
+                </Text>
+            </View>
+        );
+    } else if(password != passwordConfirm) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Passwords don't match
+                </Text>
+            </View>
+        );
+    } else {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    Passwords match!
+                </Text>
+            </View>
+        );
+    }
+}
 
 export default class Signin extends Component {
     state = {
@@ -47,13 +230,15 @@ export default class Signin extends Component {
                     contentContainerStyle={{alignItems: "center"}}
                 >
                     <View style={styles.avatarArea}>
-                        <View style={styles.avatarContainer}>
-                            <Icon
-                                name="md-add"
-                                color={Colors.white}
-                                size={50}
-                            />
-                        </View>
+                        <TouchableOpacity onPress={() => Alert.alert("I don't work yet")}>
+                            <View style={styles.avatarContainer}>
+                                <Icon
+                                    name="md-add"
+                                    color={Colors.white}
+                                    size={50}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.inputContainer}>
                         <UserInput 
@@ -68,6 +253,7 @@ export default class Signin extends Component {
                             onSubmitEditing={() => { this.emailField.focus(); }}
                             blurOnSubmit={false}
                         />
+                        {usernameError(this.state.username)}
                         <UserInput 
                             autoCapitalize="none"
                             getValue={(email) => {this.setState({ email })}}
@@ -80,6 +266,7 @@ export default class Signin extends Component {
                             onSubmitEditing={() => { this.passwordField.focus(); }}
                             blurOnSubmit={false}
                         />
+                        {emailError(this.state.email)}
                         <UserInput 
                             autoCapitalize="none"
                             getValue={(password) => this.setState({ password })}
@@ -92,6 +279,7 @@ export default class Signin extends Component {
                             onSubmitEditing={() => { this.passwordConfirmField.focus(); }}
                             blurOnSubmit={false}
                         />
+                        {passwordError(this.state.password)}
                         <UserInput 
                             autoCapitalize="none"
                             getValue={(passwordConfirm) => this.setState({ passwordConfirm })}
@@ -104,9 +292,10 @@ export default class Signin extends Component {
                             onSubmitEditing={() => {}}
                             blurOnSubmit={true}
                         />
+                        {passwordConfirmError(this.state.password, this.state.passwordConfirm)}
                         <View style={styles.submit}>
                             <UserSubmit 
-                                submit={this.signin}
+                                submit={() => Alert.alert("I don't work atm")}
                                 text="Log In"
                                 style={styles.loginButton}
                             />
@@ -136,7 +325,7 @@ const styles = StyleSheet.create({
     },
     avatarArea: {
         marginTop: "10%",
-        marginBottom: "5%"
+        marginBottom: "5%",
     },
     avatarContainer: {
         alignItems: "center",
@@ -148,6 +337,18 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: "80%",
+    },
+    errorContainer: {
+        flexDirection: "row",
+        paddingBottom: 10
+    },
+    errorIcon: {
+        width: 20,
+        alignItems: "center"
+    },
+    errorMessage: {
+        paddingLeft: 10,
+        color: Colors.darkGray
     },
     submit: {
         marginTop: 20
