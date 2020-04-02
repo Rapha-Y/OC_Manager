@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 import Character from './screens/Character';
 import Creations from './screens/Creations';
 import Feed from './screens/Feed';
-import Section from './components/Folder'; //rewrite component as screen and as section
+import Section from './screens/Section'; //rewrite component as screen and as section
 import Loading from './screens/Loading';
 import Login from './screens/Login';
 import Lore from './screens/Lore';

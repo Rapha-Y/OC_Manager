@@ -1,0 +1,107 @@
+[
+    {
+        "ssid": "001",
+        "position": 0,
+        "name": "Traits",
+        "display": "row",
+        "cid": "001"
+    },
+    {
+        "ssid": "002",
+        "position": 1,
+        "name": "Skills",
+        "display": "row",
+        "cid": "001"
+    },
+    {
+        "ssid": "003",
+        "position": 2,
+        "name": "Appearance",
+        "display": "row",
+        "cid": "001"
+    },
+    {
+        "ssid": "004",
+        "position": 3,
+        "name": "Story",
+        "display": "column",
+        "cid": "001"
+    },
+    {
+        "ssid": "005",
+        "position": 4,
+        "name": "Relationships",
+        "display": "row",
+        "cid": "001"
+    },
+    {
+        "ssid": "006",
+        "position": 0,
+        "name": "Traits",
+        "display": "row",
+        "cid": "002"
+    },
+    {
+        "ssid": "007",
+        "position": 1,
+        "name": "Skills",
+        "display": "row",
+        "cid": "002"
+    },
+    {
+        "ssid": "008",
+        "position": 2,
+        "name": "Appearance",
+        "display": "row",
+        "cid": "002"
+    },
+    {
+        "ssid": "009",
+        "position": 3,
+        "name": "Story",
+        "display": "column",
+        "cid": "002"
+    },
+    {
+        "ssid": "010",
+        "position": 4,
+        "name": "Relationships",
+        "display": "row",
+        "cid": "002"
+    },
+    {
+        "ssid": "011",
+        "position": 0,
+        "name": "Traits",
+        "display": "row",
+        "cid": "003"
+    },
+    {
+        "ssid": "012",
+        "position": 1,
+        "name": "Skills",
+        "display": "row",
+        "cid": "003"
+    },
+    {
+        "ssid": "013",
+        "position": 2,
+        "name": "Appearance",
+        "display": "row",
+        "cid": "003"
+    },
+    {
+        "ssid": "014",
+        "position": 3,
+        "name": "Story",
+        "display": "column",
+        "cid": "003"
+    },
+    {
+        "ssid": "015",
+        "position": 4,
+        "name": "Relationships",
+        "display": "row",
+        "cid": "003"
+    }
+]

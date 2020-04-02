@@ -1,88 +1,35 @@
-{
-    "users": [
-        {
-            "uid": "55b800d1-a2ed-4747-95bf-d40892f27e1c",
-            "date": 1585182397997,
-            "username": "Anni",
-            "email": "annihilator.709@gmail.com",
-            "password": "password",
-            "avatar": "https://tinyurl.com/yxx7mgxg",
-            "bio": "Spiral staircase, rhinoceros beetle, desolation row, fig tart, rhinoceros beetle, via dolorosa, rhinoceros beetle, singularity point, giotto, angel, hydrangea, rhinoceros beetle, singularity point, secret emperor.",
-            "following": [
-                "e432a2b5-7ebb-4b03-9774-262b8413c5fa",
-                "740187ec-8ac1-4ddf-9650-2638416f2911"
-            ],
-            "followers": [
-                "e432a2b5-7ebb-4b03-9774-262b8413c5fa"
-            ],
-            "characters": [
-                "6cccd031-98d9-46ad-9ddd-e790423132e3",
-                "7c3c95cc-2051-4c70-9bc1-c22c2ada2704",
-                "903b25b3-27db-4a11-b148-f363ec15890a"
-            ],
-            "folders": [
-                "4db76f36-7852-4861-a105-116b17b00aec",
-                "d3b6a180-42f9-45b3-bf33-42b5f990ab26",
-                "2fba4f79-6e94-441c-9212-3e489af6bf87",
-                "c84dd35a-a931-4f68-b590-dd4deddfb2b6"
-            ],
-            "lores": [
-                "b57e582a-7d17-4577-9fd3-bb184913bf50"
-            ]
-        },
-        {
-            "uid": "740187ec-8ac1-4ddf-9650-2638416f2911",
-            "date": 1585182415539,
-            "username": "Panko",
-            "email": "mlpinkie.aaaa@gmail.com",
-            "password": "aaaaaaaa",
-            "avatar": "https://tinyurl.com/qnen3hk",
-            "bio": "You know of all the people I dream of living with me, I didn't expect Anni to be the first one gone. Kokojo is my best friend now",
-            "following": [
-                "e432a2b5-7ebb-4b03-9774-262b8413c5fa"
-            ],
-            "followers": [
-                "55b800d1-a2ed-4747-95bf-d40892f27e1c",
-                "e432a2b5-7ebb-4b03-9774-262b8413c5fa"
-            ],
-            "characters": [
-                "484d3ab0-72c7-4f5b-8735-68822a319f5d",
-                "4b2c5d40-8695-42f8-8f38-6d368d6b113c"
-            ],
-            "folders": [
-                "05394c04-6086-4817-8b3a-1597ee02efbe",
-                "5d77a5ec-6c1b-43a3-8ade-7a165f06779a",
-                "946c3ecf-eea0-402d-8a5c-dacfc3c8d17a"
-            ],
-            "lores": [
-                "2a1f354e-d700-4578-88b5-56ffe06191a6"
-            ]
-        },
-        {
-            "uid": "e432a2b5-7ebb-4b03-9774-262b8413c5fa",
-            "date": 1585182421984,
-            "username": "Kokojo",
-            "email": "kokokokokojo@gmail.com",
-            "password": "amigato",
-            "avatar": "https://tinyurl.com/w6nx5xs",
-            "bio": "was given an assignment to make a blog. will make a blog about cursed animal facts. did u know echidnas have a four-headed p",
-            "following": [
-                "55b800d1-a2ed-4747-95bf-d40892f27e1c",
-                "740187ec-8ac1-4ddf-9650-2638416f2911"
-            ],
-            "followers": [
-                "55b800d1-a2ed-4747-95bf-d40892f27e1c",
-                "740187ec-8ac1-4ddf-9650-2638416f2911"
-            ],
-            "characters": [
-
-            ],
-            "folders": [
-                "76ab2fb3-17a7-4005-82ab-7649d3e7fbf7"
-            ],
-            "lores": [
-
-            ]
-        }
-    ]
-}
+[
+    {
+        "uid": "001",
+        "date": 1585778404650,
+        "email": "annihilator.709@gmail.com",
+        "password": "password",
+        "username": "Anni",
+        "usertag": "AnniZeppeli",
+        "avatar": "https://tinyurl.com/yxx7mgxg",
+        "description": "Spiral staircase, rhinoceros beetle, desolation row, fig tart, rhinoceros beetle, via dolorosa, rhinoceros beetle, singularity point, giotto, angel, hydrangea, rhinoceros beetle, singularity point, secret emperor.",
+        "cover": "" 
+    },
+    {
+        "uid": "002",
+        "date": 1585778707704,
+        "email": "pinkiepie@gmail.com",
+        "password": "aaaaaaaa",
+        "username": "Panko",
+        "usertag": "PinkiePie",
+        "avatar": "https://tinyurl.com/qnen3hk",
+        "description": "You know of all the people I dream of living with me, I didn't expect Anni to be the first one gone. Kokojo is my best friend now",
+        "cover": "" 
+    },
+    {
+        "uid": "003",
+        "date": 1585778847558,
+        "email": "kokokokojo@gmail.com",
+        "password": "amigato",
+        "username": "Kokojo",
+        "usertag": "APotato",
+        "avatar": "https://tinyurl.com/w6nx5xs",
+        "description": "was given an assignment to make a blog. will make a blog about cursed animal facts. did u know echidnas have a four-headed p",
+        "cover": "" 
+    }
+]

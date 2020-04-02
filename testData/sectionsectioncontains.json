@@ -1,0 +1,22 @@
+[
+    {
+        "parentid": "001",
+        "childid": "004"
+    },
+    {
+        "parentid": "001",
+        "childid": "005"
+    },
+    {
+        "parentid": "001",
+        "childid": "006"
+    },
+    {
+        "parentid": "002",
+        "childid": "007"
+    },
+    {
+        "parentid": "007",
+        "childid": "008"
+    }
+]

@@ -10,6 +10,4 @@ Project stages:
 
 For study and showcase of skills, only the first and second stages are necessary, the third is only to be developed if it's decided that the project is gonna be taken seriously and published.
 
-For stages 1 and 2, the following ER diagram is to be followed:
-
-![ER Diagram](https://i.imgur.com/AHDy3zr.png)
+[Project ER Diagram/Data Tables](https://drive.google.com/drive/folders/1bla8s9z-4acGveCDX6n8d24RSO5zjXEc?usp=sharing)
