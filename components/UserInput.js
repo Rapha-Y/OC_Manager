@@ -20,6 +20,7 @@ export default class UserInput extends Component {
                             value => {
                                 this.setState({ value });
                                 this.props.getValue(value);
+                                this.props.getError(value);
                             }
                         }
                         placeholder={this.props.placeholder}

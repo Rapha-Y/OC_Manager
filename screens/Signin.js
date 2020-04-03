@@ -10,38 +10,15 @@ import Colors from '../resources/Colors';
 
 import Fire from '../Fire';
 
-//change to switch-case later, also these errors only show messages - they must block login later
-function usernameError(username) {
-    if(username.length == 0) {
+function errorDisplay(isError, message) {
+    if(isError) {
         return(
             <View style={styles.errorContainer}>
                 <View style={styles.errorIcon}>
                     <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
                 </View>
                 <Text style={styles.errorMessage}>
-                    This field is mandatory
-                </Text>
-            </View>
-        );
-    } else if(!(/^\w+$/.test(username))) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Only letters, numbers and underscore are allowed
-                </Text>
-            </View>
-        );
-    } else if(username.length < 6) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Must have a minimum of 6 characters
+                    {message}
                 </Text>
             </View>
         );
@@ -52,140 +29,7 @@ function usernameError(username) {
                     <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
                 </View>
                 <Text style={styles.errorMessage}>
-                    Your username is ok!
-                </Text>
-            </View>
-        );
-    }
-}
-
-function emailError(email) {
-    if(email.length == 0) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    This field is mandatory
-                </Text>
-            </View>
-        );
-    } if(Fire.shared.emailExists(email)) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    This e-mail is already in use
-                </Text>
-            </View>
-        );
-    } else {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Your e-mail is available!
-                </Text>
-            </View>
-        );
-    }
-}
-
-function passwordError(password) {
-    if(password.length == 0) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    This field is mandatory
-                </Text>
-            </View>
-        );
-    } else if(/^\s+$/.test(password)) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Spaces are not allowed
-                </Text>
-            </View>
-        );
-    } else if(!(/^[\x00-\x7F]*$/.test(password))) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Only ASCII characters
-                </Text>
-            </View>
-        );
-    } else if(password.length < 8) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Must have a minimum of 8 characters
-                </Text>
-            </View>
-        );
-    } else {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Your password is ok!
-                </Text>
-            </View>
-        );
-    }
-}
-
-function passwordConfirmError(password, passwordConfirm) {
-    if(password.length == 0) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    This field is mandatory
-                </Text>
-            </View>
-        );
-    } else if(password != passwordConfirm) {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Passwords don't match
-                </Text>
-            </View>
-        );
-    } else {
-        return(
-            <View style={styles.errorContainer}>
-                <View style={styles.errorIcon}>
-                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
-                </View>
-                <Text style={styles.errorMessage}>
-                    Passwords match!
+                    {message}
                 </Text>
             </View>
         );
@@ -198,28 +42,127 @@ export default class Signin extends Component {
         email: "",
         password: "",
         passwordConfirm: "",
+        
+        usernameError: {
+            exists: true, 
+            message: "This field is mandatory"
+        },
+        emailError: {
+            exists: true, 
+            message: "This field is mandatory"
+        },
+        passwordError: {
+            exists: true, 
+            message: "This field is mandatory"
+        },
+        passwordConfirmError: {
+            exists: true, 
+            message: "This field is mandatory"
+        },
+
         errorMessage: null
     }
 
-    signin = () => {
-        var error = null;
-        if(this.state.username == "") {
-            error = "You must have a username";
-        } else if(this.state.email == "") {
-            error = "You must have an e-mail"
-        } else if(this.state.password == "") {
-            error = "You must have a password"
-        } else if(this.state.password != this.state.passwordConfirm) {
-            error = "Your passwords don't match"
+    usernameErrorHandler(username) {
+        if(username.length == 0) {
+            this.setState({ 
+                usernameError: { exists: true, message: "This field is mandatory" } 
+            });
+        } else if(!(/^\w+$/.test(username))) {
+            this.setState({ 
+                usernameError: { exists: true, message: "Only letters, numbers and underscore are allowed" } 
+            });
+        } else if(username.length < 6) {
+            this.setState({ 
+                usernameError: { exists: true, message: "Must have a minimum of 6 characters" } 
+            });
         } else {
-            Fire.shared.createUser({
-                username: this.state.username,
-                email: this.state.email,
-                password: this.state.password
+            this.setState({ 
+                usernameError: { exists: false, message: "Your username is ok!" } 
             });
         }
-        this.setState({errorMessage: error});
-    };
+    }
+
+    emailErrorHandler(email) {
+        if(email.length == 0) {
+            this.setState({ 
+                emailError: { exists: true, message: "This field is mandatory" } 
+            });
+        } else if(Fire.shared.emailExists(email)) {
+            this.setState({
+                emailError: { exists: true, message: "This e-mail is already in use" }
+            });
+        } else {
+            this.setState({ 
+                emailError: { exists: false, message: "Your e-mail is available!" } 
+            });
+        }
+    }
+
+    passwordErrorHandler(password) {
+        if(password.length == 0) {
+            this.setState({ 
+                passwordError: { exists: true, message: "This field is mandatory" } 
+            });
+        } else if(/^\s+$/.test(password)) {
+            this.setState({ 
+                passwordError: { exists: true, message: "Spaces are not allowed" } 
+            });
+        } else if(!(/^[\x00-\x7F]*$/.test(password))) {
+            this.setState({ 
+                passwordError: { exists: true, message: "Only ASCII characters" } 
+            });
+        } else if(password.length < 8) {
+            this.setState({ 
+                passwordError: { exists: true, message: "Must have a minimum of 8 characters" } 
+            });
+        } else {
+            this.setState({ 
+                passwordError: { exists: false, message: "Your password is ok!" } 
+            });
+        }
+
+        if(this.state.passwordConfirm.length != 0) {
+            if(password != this.state.passwordConfirm) {
+                this.setState({
+                    passwordConfirmError: { exists: true, message: "Passwords don't match" }
+                });
+            } else {
+                this.setState({
+                    passwordConfirmError: { exists: false, message: "Passwords match!" }
+                });
+            }
+        }
+    }
+
+    passwordConfirmErrorHandler(passwordConfirm) {
+        if(passwordConfirm.length == 0) {
+            this.setState({ 
+                passwordConfirmError: { exists: true, message: "This field is mandatory" } 
+            });
+        } else if(passwordConfirm != this.state.password) {
+            this.setState({
+                passwordConfirmError: { exists: true, message: "Passwords don't match" }
+            });
+        } else {
+            this.setState({
+                passwordConfirmError: { exists: false, message: "Passwords match!" }
+            });
+        }
+    }
+
+    placeholderSignIn() {
+        if(
+            this.state.usernameError.exists || 
+            this.state.emailError.exists || 
+            this.state.passwordError.exists || 
+            this.state.passwordConfirmError.exists
+        ) {
+            return "You gotta fix your info";
+        } else {
+            return "You'd have an account now";
+        }
+    }
 
     render() {
         return(
@@ -243,7 +186,10 @@ export default class Signin extends Component {
                     <View style={styles.inputContainer}>
                         <UserInput 
                             autoCapitalize="none"
+
                             getValue={(username) => {this.setState({ username })}}
+                            getError={(username) => {this.usernameErrorHandler(username)}}
+                            
                             keyboardType="default"
                             placeholder="Username"
                             secureTextEntry={false}
@@ -253,10 +199,16 @@ export default class Signin extends Component {
                             onSubmitEditing={() => { this.emailField.focus(); }}
                             blurOnSubmit={false}
                         />
-                        {usernameError(this.state.username)}
+                        {errorDisplay(
+                            this.state.usernameError.exists, 
+                            this.state.usernameError.message
+                        )}
                         <UserInput 
                             autoCapitalize="none"
+                            
                             getValue={(email) => {this.setState({ email })}}
+                            getError={(email) => {this.emailErrorHandler(email)}}
+                            
                             keyboardType="email-address"
                             placeholder="E-mail"
                             secureTextEntry={false}
@@ -266,10 +218,16 @@ export default class Signin extends Component {
                             onSubmitEditing={() => { this.passwordField.focus(); }}
                             blurOnSubmit={false}
                         />
-                        {emailError(this.state.email)}
+                        {errorDisplay(
+                            this.state.emailError.exists, 
+                            this.state.emailError.message
+                        )}
                         <UserInput 
                             autoCapitalize="none"
+                            
                             getValue={(password) => this.setState({ password })}
+                            getError={(password) => this.passwordErrorHandler(password)}
+                            
                             keyboardType="default"
                             placeholder="Password"
                             secureTextEntry={true}
@@ -279,10 +237,16 @@ export default class Signin extends Component {
                             onSubmitEditing={() => { this.passwordConfirmField.focus(); }}
                             blurOnSubmit={false}
                         />
-                        {passwordError(this.state.password)}
+                        {errorDisplay(
+                            this.state.passwordError.exists, 
+                            this.state.passwordError.message
+                        )}
                         <UserInput 
                             autoCapitalize="none"
+                            
                             getValue={(passwordConfirm) => this.setState({ passwordConfirm })}
+                            getError={(passwordConfirm) => this.passwordConfirmErrorHandler(passwordConfirm)}
+                            
                             keyboardType="default"
                             placeholder="Password Confirmation"
                             secureTextEntry={true}
@@ -292,11 +256,14 @@ export default class Signin extends Component {
                             onSubmitEditing={() => {}}
                             blurOnSubmit={true}
                         />
-                        {passwordConfirmError(this.state.password, this.state.passwordConfirm)}
+                        {errorDisplay(
+                            this.state.passwordConfirmError.exists, 
+                            this.state.passwordConfirmError.message
+                        )}
                         <View style={styles.submit}>
                             <UserSubmit 
-                                submit={() => Alert.alert("I don't work atm")}
-                                text="Log In"
+                                submit={() => Alert.alert(this.placeholderSignIn())}
+                                text="Sign In"
                                 style={styles.loginButton}
                             />
                         </View>
