@@ -15,7 +15,7 @@ function errorDisplay(isError, message) {
         return(
             <View style={styles.errorContainer}>
                 <View style={styles.errorIcon}>
-                    <AltIcon name="error-outline" size={20} color={Colors.darkGray} />
+                    <AltIcon name="error-outline" size={20} color={Colors.red} />
                 </View>
                 <Text style={styles.errorMessage}>
                     {message}
@@ -26,9 +26,9 @@ function errorDisplay(isError, message) {
         return(
             <View style={styles.errorContainer}>
                 <View style={styles.errorIcon}>
-                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.darkGray} />
+                    <Icon name="md-checkmark-circle-outline" size={20} color={Colors.green} />
                 </View>
-                <Text style={styles.errorMessage}>
+                <Text style={styles.successMessage}>
                     {message}
                 </Text>
             </View>
@@ -315,7 +315,11 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         paddingLeft: 10,
-        color: Colors.darkGray
+        color: Colors.red
+    },
+    successMessage: {
+        paddingLeft: 10,
+        color: Colors.green
     },
     submit: {
         marginTop: 20

@@ -104,6 +104,17 @@ class Fire {
 
         return root[0];
     }*/
+    getUID(email, password) {
+        var user = users.filter(function (usr) {
+            return (usr.email == email && usr.password == password);
+        });
+        if(user.length == 0) {
+            return null;
+        } else {
+            return user[0].uid;
+        }
+    }
+
     emailExists(email) {
         var user = users.filter(function (usr) {
             return usr.email == email;

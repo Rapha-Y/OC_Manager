@@ -1,38 +1,56 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
-import * as firebase from 'firebase';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Fire from '../Fire';
 
 import Colors from "../resources/Colors";
 import UserInput from "../components/UserInput";
 import UserSubmit from "../components/UserSubmit";
 
+function errorDisplay(isError, message) {
+    if(isError) {
+        return(
+            <View style={styles.errorContainer}>
+                <View style={styles.errorIcon}>
+                    <Icon name="error-outline" size={20} color={Colors.red} />
+                </View>
+                <Text style={styles.errorMessage}>
+                    {message}
+                </Text>
+            </View>
+        );
+    } else {
+        return(
+            <View style={styles.errorContainer} />
+        );
+    }
+}
+
 export default class Login extends Component {
     state = {
         email: "",
         password: "",
-        errorMessage: null
+
+        error: {
+            exists: false,
+            message: ""
+        },
     };
 
-    //temporary
-    tempLogin = () => {
-        var response = Fire.shared.tempLogin(this.state.email, this.state.password);
-        
-        if(response.error) {
-            Alert.alert("Authentication Error", response.content);
+    logInAttempt() {
+        var uid = Fire.shared.getUID(this.state.email, this.state.password);
+        if(uid == null) {
+            this.setState({
+                error: { exists: true, message: "Incorrect e-mail or password" }
+            });
         } else {
-            Alert.alert("Log In", response.content);
+            this.placeholderLogIn(uid);
         }
-    };
+    }
 
-    login = () => {
-        const { email, password } = this.state;
-
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .catch(error => {this.setState({ errorMessage: error.message }); console.log(error);});
-    };
+    placeholderLogIn(uid) {
+        Alert.alert("Your uid is:", uid);
+    }
 
     render() {
         return(
@@ -46,7 +64,10 @@ export default class Login extends Component {
                 <View style={styles.inputContainer}>
                     <UserInput 
                         autoCapitalize="none"
+                        
                         getValue={(email) => {this.setState({ email })}}
+                        getError={() => {}}
+                        
                         keyboardType="email-address"
                         placeholder="E-mail"
                         secureTextEntry={false}
@@ -58,7 +79,10 @@ export default class Login extends Component {
                     />
                     <UserInput 
                         autoCapitalize="none"
+                        
                         getValue={(password) => this.setState({ password })}
+                        getError={() => {}}
+                        
                         keyboardType="default"
                         placeholder="Password"
                         secureTextEntry={true}
@@ -68,9 +92,10 @@ export default class Login extends Component {
                         onSubmitEditing={() => {}}
                         blurOnSubmit={true}
                     />
+                    {errorDisplay(this.state.error.exists, this.state.error.message)}
                     <View style={styles.submit}>
                         <UserSubmit 
-                            submit={() => this.tempLogin()}
+                            submit={() => this.logInAttempt()}
                             text="Log In"
                             style={styles.loginButton}
                         />
@@ -90,7 +115,12 @@ export default class Login extends Component {
                     <View style={{flexDirection: "row"}}>
                         <Text>Don't have an account? </Text>
                         <View style={styles.textButton}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate("Signin")}>
+                            <TouchableOpacity onPress={() => {
+                                this.props.navigation.navigate("Signin"),
+                                this.setState({
+                                    error: { exists: false, message: "" }
+                                })
+                            }}>
                                 <Text style={styles.textLink}>Sign Up</Text>
                             </TouchableOpacity>
                         </View>
@@ -115,6 +145,17 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: "80%",
+    },
+    errorContainer: {
+        flexDirection: "row",
+    },
+    errorIcon: {
+        width: 20,
+        alignItems: "center"
+    },
+    errorMessage: {
+        paddingLeft: 10,
+        color: Colors.red
     },
     submit: {
         marginTop: 20
