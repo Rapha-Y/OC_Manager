@@ -49,7 +49,8 @@ export default class Login extends Component {
     }
 
     placeholderLogIn(uid) {
-        Alert.alert("Your uid is:", uid);
+        this.props.route.params.logIn(uid);
+        //this.props.route.params.rootNavigation.navigate("App", { uid: uid });
     }
 
     render() {

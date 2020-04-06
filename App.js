@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -27,10 +26,14 @@ const BotTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 class FeedTab extends Component {
+  state = {
+    uid: this.props.route.params.uid
+  }
+
   render() {
     return(
       <Stack.Navigator initialRouteName="Feed">
-        <Stack.Screen name="Feed" component={Feed} />
+        <Stack.Screen name="Feed" component={Feed} initialParams={{ uid: this.state.uid }} />
         <Stack.Screen name="Character" component={Character} />
         <Stack.Screen name="Lore" component={Lore} />
         <Stack.Screen name="Section" component={Section} />
@@ -67,6 +70,10 @@ class ProfileTab extends Component {
 }
 
 class BottomTabs extends Component {
+  state = {
+    uid: this.props.route.params.uid
+  }
+
   render() {
     return(
       <BotTab.Navigator
@@ -84,6 +91,7 @@ class BottomTabs extends Component {
               <Icon name="md-home" color={color} size={size}/>
             )
           }}
+          initialParams={{ uid: this.state.uid }}
         />
         <BotTab.Screen 
           name="Creations"
@@ -111,13 +119,19 @@ class BottomTabs extends Component {
 }
 
 class AppContainer extends Component {
+  state = {
+    uid: this.props.route.params.uid
+  }
+
   render() {
     return(
-      <NavigationContainer>
-        <Stack.Navigator headerMode={"none"}>
-          <Stack.Screen name="default" component={BottomTabs} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator headerMode={"none"}>
+        <Stack.Screen 
+          name="default" 
+          component={BottomTabs}
+          initialParams={{ uid: this.state.uid }} 
+        />
+      </Stack.Navigator>
     );
   }
 }
@@ -125,24 +139,51 @@ class AppContainer extends Component {
 class AuthStack extends Component {
   render() {
     return(
+      <Stack.Navigator headerMode={"none"}>
+        <Stack.Screen 
+          name="Login" 
+          component={Login} 
+          initialParams={{ 
+            rootNavigation: this.props.navigation, 
+            logIn: this.props.route.params.logIn
+          }} 
+        />
+        <Stack.Screen name="Signin" component={Signin} />
+      </Stack.Navigator>
+    );
+  }
+}
+
+export default class FullApp extends Component {
+  state = {
+    isLoggedIn: false,
+    uid: ""
+  }
+  
+  logIn(uid) {
+    this.setState({ isLoggedIn: true });
+    this.setState({ uid });
+  }
+
+  render() {
+    return(
       <NavigationContainer>
         <Stack.Navigator headerMode={"none"}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signin" component={Signin} />
+          {this.state.isLoggedIn ? (
+            <Stack.Screen 
+              name="App" 
+              component={AppContainer} 
+              initialParams={{ uid: this.state.uid }}
+            />
+          ) : (
+            <Stack.Screen 
+              name="Auth" 
+              component={AuthStack} 
+              initialParams={{ logIn: this.logIn.bind(this) }} 
+            />
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
-export default createAppContainer(
-  createSwitchNavigator(
-    {
-      App: AppContainer,
-      Auth: AuthStack,
-    },
-    {
-      initialRouteName: "Auth"
-    }
-  )
-);
