@@ -5,6 +5,8 @@ import { decode, encode } from 'base-64';
 
 //temporary data
 import users from './testData/users';
+import characters from './testData/characters';
+import useruserfollows from './testData/useruserfollows';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -113,6 +115,55 @@ class Fire {
         } else {
             return user[0].uid;
         }
+    }
+
+    getUsername(uid) {
+        var user = users.filter(function (usr) {
+            return (usr.uid == uid);
+        });
+        return user[0].username;
+    }
+
+    getUsertag(uid) {
+        var user = users.filter(function (usr) {
+            return (usr.uid == uid);
+        });
+        return user[0].usertag;
+    }
+
+    getAvatar(uid) {
+        var user = users.filter(function (usr) {
+            return (usr.uid == uid);
+        });
+        return user[0].avatar;
+    }
+
+    getCover(uid) {
+        var user = users.filter(function (usr) {
+            return (usr.uid == uid);
+        });
+        return user[0].cover;
+    }
+
+    getDescription(uid) {
+        var user = users.filter(function (usr) {
+            return (usr.uid == uid);
+        });
+        return user[0].description;
+    }
+
+    countCharacters(uid) { //might be worth to separate character list from count later
+        var characterList = characters.filter(function (char) {
+            return (char.uid == uid);
+        });
+        return characterList.length;
+    }
+
+    countFollowers(uid) { //might be worth to separate follower list from count later
+        var followerList = useruserfollows.filter(function (flw) {
+            return (flw.followedid == uid);
+        });
+        return followerList.length;
     }
 
     emailExists(email) {

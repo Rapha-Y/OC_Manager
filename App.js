@@ -57,13 +57,17 @@ class CreationsTab extends Component {
 }
 
 class ProfileTab extends Component {
+  state = {
+    uid: this.props.route.params.uid
+  }
+
   render() {
     return(
       <Stack.Navigator initialRouteName="Profile">
         <Stack.Screen name="Character" component={Character} />
         <Stack.Screen name="Lore" component={Lore} />
         <Stack.Screen name="Section" component={Section} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Profile" component={Profile} initialParams={{ uid: this.state.uid }} />
       </Stack.Navigator>
     );
   }
@@ -112,6 +116,7 @@ class BottomTabs extends Component {
               <Icon name="md-person" color={color} size={size}/>
             )
           }}
+          initialParams={{ uid: this.state.uid }}
         />
       </BotTab.Navigator>
     );

@@ -4,6 +4,7 @@ import ProfileTabs from '../components/ProfileTabs';
 import Header from '../components/Header';
 import Colors from '../resources/Colors';
 import NumShortener from '../resources/NumShortener';
+import Fire from '../Fire';
 
 const userInfo = {
     cover: "https://www.vainglorygame.com/wp-content/uploads/2016/12/Joule_Lore_Heistp3.jpg",
@@ -17,37 +18,48 @@ const userInfo = {
 }
 
 export default class Profile extends Component {
+    state = {
+        uid: this.props.route.params.uid,
+
+        username: Fire.shared.getUsername(this.props.route.params.uid),
+        usertag: Fire.shared.getUsertag(this.props.route.params.uid),
+        avatar: Fire.shared.getAvatar(this.props.route.params.uid),
+        cover: Fire.shared.getCover(this.props.route.params.uid),
+        description: Fire.shared.getDescription(this.props.route.params.uid),
+
+        characterNumber: Fire.shared.countCharacters(this.props.route.params.uid),
+        followerNumber: Fire.shared.countFollowers(this.props.route.params.uid)
+    }
+
     render() {
         return(
             <View style={styles.wrapper}>
                 <Header name="Profile"></Header>
                 <View style={styles.body}>
                     <Image 
-                        source={{uri: userInfo.cover}}
+                        source={{uri: this.state.cover}}
                         style={styles.cover}
                     />
                     <Image
-                        source={{uri: userInfo.avatar}}
+                        source={{uri: this.state.avatar}}
                         style={styles.avatar}
                     />
                 </View>
                 <View style={styles.summary}>
                     <Text style={styles.username}>
-                        {userInfo.username}
+                        {this.state.username}
                     </Text>
                     <Text style={styles.tag}>
-                        {userInfo.tag}
+                        @{this.state.usertag}
                     </Text>
                     <Text style={styles.description}>
-                        {userInfo.description}
+                        {this.state.description}
                     </Text>
                     <View style={styles.stats}>
-                        <Text style={styles.firstStat}>{NumShortener(userInfo.characters)}</Text>
-                        <Text> OCs</Text>
-                        <Text style={styles.stat}>{NumShortener(userInfo.followers)}</Text>
+                        <Text style={styles.firstStat}>{NumShortener(this.state.characterNumber)}</Text>
+                        <Text> Characters</Text>
+                        <Text style={styles.stat}>{NumShortener(this.state.followerNumber)}</Text>
                         <Text> Followers</Text>
-                        <Text style={styles.stat}>{NumShortener(userInfo.likes)}</Text>
-                        <Text> Likes</Text>
                     </View>
                 </View>
                 <ProfileTabs/>
