@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -33,24 +34,118 @@ class FeedTab extends Component {
   render() {
     return(
       <Stack.Navigator initialRouteName="Feed">
-        <Stack.Screen name="Feed" component={Feed} initialParams={{ uid: this.state.uid }} />
-        <Stack.Screen name="Character" component={Character} />
-        <Stack.Screen name="Lore" component={Lore} />
-        <Stack.Screen name="Section" component={Section} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen 
+          name="Feed" 
+          component={Feed} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Character" 
+          component={Character} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Lore" 
+          component={Lore}
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Section" 
+          component={Section} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Profile" 
+          component={Profile} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
       </Stack.Navigator>
     );
   }
 }
 
 class CreationsTab extends Component {
+  state = {
+    uid: this.props.route.params.uid
+  }
+  
   render() {
     return(
       <Stack.Navigator initialRouteName="Lore">
-        <Stack.Screen name="Character" component={Character} />
-        <Stack.Screen name="Lore" component={Lore} />
-        <Stack.Screen name="Section" component={Section} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen 
+          name="Character" 
+          component={Character} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Lore" 
+          component={Lore} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Section" 
+          component={Section} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Profile" 
+          component={Profile} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
       </Stack.Navigator>
     );
   }
@@ -64,10 +159,50 @@ class ProfileTab extends Component {
   render() {
     return(
       <Stack.Navigator initialRouteName="Profile">
-        <Stack.Screen name="Character" component={Character} />
-        <Stack.Screen name="Lore" component={Lore} />
-        <Stack.Screen name="Section" component={Section} />
-        <Stack.Screen name="Profile" component={Profile} initialParams={{ uid: this.state.uid }} />
+        <Stack.Screen 
+          name="Character" 
+          component={Character} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Lore" 
+          component={Lore} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Section" 
+          component={Section} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
+        <Stack.Screen 
+          name="Profile" 
+          component={Profile} 
+          initialParams={{ uid: this.state.uid }}
+          options={{
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          }} 
+        />
       </Stack.Navigator>
     );
   }
@@ -192,3 +327,13 @@ export default class FullApp extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: Colors.purple,
+  },
+  headerText: {
+    fontWeight: "bold", 
+    fontSize: 18
+  }
+});

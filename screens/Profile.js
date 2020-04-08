@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import ProfileTabs from '../components/ProfileTabs';
-import Header from '../components/Header';
 import Colors from '../resources/Colors';
 import NumShortener from '../resources/NumShortener';
 import Fire from '../Fire';
@@ -34,7 +33,6 @@ export default class Profile extends Component {
     render() {
         return(
             <View style={styles.wrapper}>
-                <Header name="Profile"></Header>
                 <View style={styles.body}>
                     <Image 
                         source={{uri: this.state.cover}}
