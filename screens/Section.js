@@ -22,8 +22,7 @@ export default class Section extends Component {
     render() {
         return(
             <View style={{marginBottom: 100}}>
-                <Header name={this.props.name}/>
-                <ScrollView>
+                {/*<ScrollView>
                     <Dropdown 
                         hidden={this.isEmpty(this.state.characters)}
                         name="Characters"
@@ -58,7 +57,7 @@ export default class Section extends Component {
                             />
                         }
                     />    
-                </ScrollView>
+                    </ScrollView>*/}
             </View>
         );
     }

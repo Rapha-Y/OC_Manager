@@ -18,6 +18,7 @@ import Signin from './screens/Signin';
 import Colors from './resources/Colors';
 
 import firebaseConfig from "./important-info/apiKey";
+import Fire from './Fire';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -39,6 +40,7 @@ class FeedTab extends Component {
           component={Feed} 
           initialParams={{ uid: this.state.uid }}
           options={{
+            title: "Home",
             headerStyle: styles.header,
             headerTintColor: Colors.white,
             headerTitleStyle: styles.headerText,
@@ -96,12 +98,13 @@ class FeedTab extends Component {
 
 class CreationsTab extends Component {
   state = {
-    uid: this.props.route.params.uid
+    uid: this.props.route.params.uid,
+    sid: Fire.shared.getRootSection(this.props.route.params.uid)
   }
   
   render() {
     return(
-      <Stack.Navigator initialRouteName="Lore">
+      <Stack.Navigator initialRouteName="Section">
         <Stack.Screen 
           name="Character" 
           component={Character} 
@@ -127,8 +130,9 @@ class CreationsTab extends Component {
         <Stack.Screen 
           name="Section" 
           component={Section} 
-          initialParams={{ uid: this.state.uid }}
+          initialParams={{ uid: this.state.uid, sid: this.state.sid }}
           options={{
+            title: "My Creations",
             headerStyle: styles.header,
             headerTintColor: Colors.white,
             headerTitleStyle: styles.headerText,
@@ -140,6 +144,7 @@ class CreationsTab extends Component {
           component={Profile} 
           initialParams={{ uid: this.state.uid }}
           options={{
+            title: "Profile",
             headerStyle: styles.header,
             headerTintColor: Colors.white,
             headerTitleStyle: styles.headerText,
@@ -241,6 +246,7 @@ class BottomTabs extends Component {
               <Icon name="md-folder" color={color} size={size}/>
             )
           }}
+          initialParams={{ uid: this.state.uid,  }}
         />
         <BotTab.Screen 
           name="Profile"

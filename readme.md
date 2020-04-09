@@ -11,3 +11,9 @@ Project stages:
 For study and showcase of skills, only the first and second stages are necessary, the third is only to be developed if it's decided that the project is gonna be taken seriously and published.
 
 [Project ER Diagram/Data Tables](https://drive.google.com/drive/folders/1bla8s9z-4acGveCDX6n8d24RSO5zjXEc?usp=sharing)
+
+Temporary user login data (e-mail, password):
+
+- (annihilator.709@gmail.com, password)
+- (pinkiepie@gmail.com, aaaaaaaa)
+- (kokokokojo@gmail.com, amigato)

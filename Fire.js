@@ -7,6 +7,8 @@ import { decode, encode } from 'base-64';
 import users from './testData/users';
 import characters from './testData/characters';
 import useruserfollows from './testData/useruserfollows';
+import sections from './testData/sections';
+import sectionsectioncontains from './testData/sectionsectioncontains';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -117,39 +119,57 @@ class Fire {
         }
     }
 
-    getUsername(uid) {
+    getUser(uid) {
         var user = users.filter(function (usr) {
             return (usr.uid == uid);
         });
-        return user[0].username;
+        return user[0];
+    }
+
+    getUsername(uid) {
+        var user = this.getUser(uid);
+        return user.username;
     }
 
     getUsertag(uid) {
-        var user = users.filter(function (usr) {
-            return (usr.uid == uid);
-        });
-        return user[0].usertag;
+        var user = this.getUser(uid);
+        return user.usertag;
     }
 
     getAvatar(uid) {
-        var user = users.filter(function (usr) {
-            return (usr.uid == uid);
-        });
-        return user[0].avatar;
+        var user = this.getUser(uid);
+        return user.avatar;
     }
 
     getCover(uid) {
-        var user = users.filter(function (usr) {
-            return (usr.uid == uid);
-        });
-        return user[0].cover;
+        var user = this.getUser(uid);
+        return user.cover;
     }
 
     getDescription(uid) {
-        var user = users.filter(function (usr) {
-            return (usr.uid == uid);
+        var user = this.getUser(uid);
+        return user.description;
+    }
+
+    getRootSection(uid) {
+        function isRoot(uid) {
+            var matchList = sectionsectioncontains.filter(function (sec) {
+                return sec.uid == uid;
+            });
+            if(matchList.length != 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        var sectionList = sections.filter(function (sec) {
+            return (sec.uid == uid);
         });
-        return user[0].description;
+        var root = sectionList.filter(function (sec) {
+            return (isRoot(uid));
+        });
+        return root[0].sid;
     }
 
     countCharacters(uid) { //might be worth to separate character list from count later
