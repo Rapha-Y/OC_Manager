@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text, Button } from 'react-native';
 import Header from '../components/Header';
 import Dropdown from '../components/Dropdown';
 import CreationList from '../components/CreationList';
 
+import Fire from '../Fire'
+
 export default class Section extends Component {
     state = {
         navigation: this.props.navigation,
-        characters: this.props.characters,
-        lores: this.props.lores,
-        folders: this.props.folders
+        uid: this.props.route.params.uid,
+        sid: this.props.route.params.sid,
+        //currently, the values below are arrays of objects, while they should be arrays of said object's ids
+        //possible solution: map
+        characters: Fire.shared.getSectionCharacters(this.props.route.params.sid),
+        lores: Fire.shared.getSectionLores(this.props.route.params.sid),
+        subsections: Fire.shared.getSubsections(this.props.route.params.sid)
     }
 
     isEmpty(section) {
@@ -22,8 +28,11 @@ export default class Section extends Component {
     render() {
         return(
             <View style={{marginBottom: 100}}>
-                {/*<ScrollView>
-                    <Dropdown 
+                <ScrollView>
+                    <Button title="TestChar" onPress={() => console.log(this.state.characters)}/>
+                    <Button title="TestLore" onPress={() => console.log(this.state.lores)}/>
+                    <Button title="TestSubsec" onPress={() => console.log(this.state.subsections)}/>
+                    {/*<Dropdown 
                         hidden={this.isEmpty(this.state.characters)}
                         name="Characters"
                         collapsed={false}
@@ -56,8 +65,8 @@ export default class Section extends Component {
                                 dataType="folder"    
                             />
                         }
-                    />    
-                    </ScrollView>*/}
+                    />    */}
+                    </ScrollView>
             </View>
         );
     }

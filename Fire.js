@@ -9,6 +9,8 @@ import characters from './testData/characters';
 import useruserfollows from './testData/useruserfollows';
 import sections from './testData/sections';
 import sectionsectioncontains from './testData/sectionsectioncontains';
+import sectioncreationcontains from './testData/sectioncreationcontains';
+import lores from './testData/lores';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -184,6 +186,61 @@ class Fire {
             return (flw.followedid == uid);
         });
         return followerList.length;
+    }
+
+    creationIsIn(cid, lnkList) {
+        var matchList = lnkList.filter(function (lnk) {
+            return (lnk.cid == cid);
+        });
+        if(matchList.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    getSectionCharacters(sid) {
+        var self = this;
+        var linkList = sectioncreationcontains.filter(function (lnk) {
+            return (lnk.sid == sid);
+        });
+        var characterList = characters.filter(function (char) {
+            return (self.creationIsIn(char.cid, linkList));
+        });
+        return characterList;
+    }
+
+    getSectionLores(sid) {
+        var self = this;
+        var linkList = sectioncreationcontains.filter(function (lnk) {
+            return (lnk.sid == sid);
+        });
+        var loreList = lores.filter(function (lor) {
+            return (self.creationIsIn(lor.cid, linkList));
+        });
+        return loreList;
+    }
+
+    sectionIsIn(sid, lnkList) {
+        var matchList = lnkList.filter(function (lnk) {
+            return (lnk.childid == sid);
+        });
+        if(matchList.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    getSubsections(sid) {
+        var self = this;
+        var linkList = sectionsectioncontains.filter(function (lnk) {
+            return (lnk.parentid == sid);
+        });
+        var sectionList = sections.filter(function (sec) {
+            return (self.sectionIsIn(sec.sid, linkList));
+        });
+        return sectionList;
     }
 
     emailExists(email) {
