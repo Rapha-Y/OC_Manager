@@ -207,7 +207,9 @@ class Fire {
         var characterList = characters.filter(function (char) {
             return (self.creationIsIn(char.cid, linkList));
         });
-        return characterList;
+        return characterList.map(function (char) {
+            return char.cid;
+        });
     }
 
     getSectionLores(sid) {
@@ -218,7 +220,9 @@ class Fire {
         var loreList = lores.filter(function (lor) {
             return (self.creationIsIn(lor.cid, linkList));
         });
-        return loreList;
+        return loreList.map(function (lor) {
+            return lor.cid;
+        });
     }
 
     sectionIsIn(sid, lnkList) {
@@ -240,7 +244,9 @@ class Fire {
         var sectionList = sections.filter(function (sec) {
             return (self.sectionIsIn(sec.sid, linkList));
         });
-        return sectionList;
+        return sectionList.map(function (sec) {
+            return sec.sid;
+        });
     }
 
     emailExists(email) {

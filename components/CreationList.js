@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import CreationListItem from '../components/CreationListItem';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default class CreationList extends Component {
     state = {
         navigation: this.props.navigation,
-        data: this.breakData(this.props.data, 3)
+        data: this.props.data,
+        dataType: this.props.dataType
+        //data: this.breakData(this.props.data, 3)
     }
 
+    /*
     //separates the data into rows, limited by the number of columns
     breakData(data, colNum) {
         var brokenData = [];
@@ -39,14 +43,30 @@ export default class CreationList extends Component {
                     content: {}
                 });
                 j++;
-            }*/
+            }*//*
             brokenData.push(innerList);
         }
 
         return brokenData;
-    }
+    }*/
 
     render() {
+        return(
+            <FlatList
+                data={this.state.data}
+                renderItem={({ item }) => 
+                    <View>
+                        <Text>
+                            { item }
+                        </Text>
+                    </View>
+                }
+                keyExtractor={ item => item.id }
+            />
+        )
+    }
+
+    /*render() {
         return(
             <View style={styles.wrapper}>
                 {this.state.data.map((item, key) => (
@@ -63,7 +83,7 @@ export default class CreationList extends Component {
                 ))}
             </View>
         );
-    }
+    }*/
 }
 
 const styles = StyleSheet.create({
