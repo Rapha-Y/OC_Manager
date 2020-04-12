@@ -1,15 +1,15 @@
 [
     {
         "followerid": "001",
-        "followedId": "002"
+        "followedid": "002"
     },
     {
         "followerid": "001",
-        "followedId": "003"
+        "followedid": "003"
     },
     {
         "followerid": "002",
-        "followedId": "003"
+        "followedid": "003"
     },
     {
         "followerid": "003",

@@ -1,18 +1,54 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import Dropdown from '../components/Dropdown';
 import CreationList from '../components/CreationList';
 
 import Fire from '../Fire'
 
 export default class Section extends Component {
     state = {
-        navigation: this.props.navigation,
         uid: this.props.route.params.uid,
         sid: this.props.route.params.sid,
         characters: Fire.shared.getSectionCharacters(this.props.route.params.sid),
         lores: Fire.shared.getSectionLores(this.props.route.params.sid),
         subsections: Fire.shared.getSubsections(this.props.route.params.sid)
+    }
+
+    //could make use of a filter to order content by type, date, name, etc
+    getContentArray() {
+        var i = 0;
+        var charArray = this.state.characters.map(function(cid) {
+            i++;
+            return {
+                key: i.toString(),
+                id: cid,
+                type: "character"
+            };
+        });
+        var loreArray = this.state.lores.map(function (cid) {
+            i++;
+            return {
+                key: i.toString(),
+                id: cid,
+                type: "lore"
+            };
+        });
+        var subsecArray = this.state.subsections.map(function (sid) {
+            i++;
+            return {
+                key: i.toString(),
+                id: sid,
+                type: "section"
+            };
+        });
+        var contentArray = subsecArray.concat(charArray,loreArray);
+        while(contentArray.length%3 != 0) {
+            i++;
+            contentArray.concat({
+                key: i.toString(),
+                id: null,
+                type: "filler"
+            });
+        }
+        return contentArray;
     }
 
     isEmpty(section) {
@@ -24,44 +60,7 @@ export default class Section extends Component {
     
     render() {
         return(
-            <View style={{marginBottom: 100}}>
-                <Dropdown
-                    hidden={this.isEmpty(this.state.characters)}
-                    name="Characters"
-                    collapsed={false}
-                    content={
-                        <CreationList 
-                            navigation={this.props.navigation}
-                            data={this.state.characters}
-                            dataType="character"
-                        />
-                    }
-                />
-                <Dropdown
-                    hidden={this.isEmpty(this.state.lores)}
-                    name="Lores"
-                    collapsed={false}
-                    content={
-                        <CreationList 
-                            navigation={this.props.navigation}
-                            data={this.state.lores}
-                            dataType="lore"
-                        />
-                    }
-                />
-                <Dropdown
-                    hidden={this.isEmpty(this.state.subsections)}
-                    name="Sections"
-                    collapsed={false}
-                    content={
-                        <CreationList 
-                            navigation={this.props.navigation}
-                            data={this.state.subsections}
-                            dataType="section"
-                        />
-                    }
-                />
-            </View>
+            <CreationList navigation={this.props.navigation} data={this.getContentArray()} />
         );
     }
 }

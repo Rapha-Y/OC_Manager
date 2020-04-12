@@ -7,78 +7,60 @@ import Fire from '../Fire';
 
 export default class CreationListItem extends Component {
     state = {
-        data: this.getData(this.props.dataType, this.props.itemId),
-        navigation: this.props.navigation
-    }
-
-    getData(dataType, itemId) {
-        if(dataType == "character") {
-            return Fire.shared.getCharacter(itemId);
-        } else if (dataType == "lore") {
-            return Fire.shared.getLore(itemId);
-        } else if (dataType == "folder") {
-            console.log(Fire.shared.getFolder(itemId));
-            return Fire.shared.getFolder(itemId);
-        } else {
-            return [];
-        }
+        id: this.props.id,
+        type: this.props.type
     }
 
     render() {
-        if(this.props.dataType === "character") {
-            return(
-                <View style={styles.item}>
-                        <TouchableOpacity onPress={
-                            () => this.state.navigation.navigate("Character", { 
-                                cid: this.state.data.cid
-                            })
-                        }>
-                        <View style={styles.iconSection}>
-                            <Image 
-                                source={{uri: this.state.data.picture}} 
-                                style={styles.image} 
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.name}>{this.state.data.name}</Text>
-                </View>
-            );
-        } else if (this.props.dataType === "folder") {
-            return(
-                <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Folder")}>
-                        <View style={styles.iconSection}>
-                            <Icon 
-                                name="md-folder" 
-                                color={Colors.darkGray} 
-                                size={80}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.name}>{this.state.data.name}</Text>
-                </View>
-            );
-        } else if (this.props.dataType === "lore") {
-            return(
-                <View style={styles.item}>
-                    <TouchableOpacity onPress={() => Alert.alert("Lore")}>
-                        <View style={styles.iconSection}>
-                            <Icon 
-                                name="md-document" 
-                                color={Colors.darkGray} 
-                                size={80}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.name}>{this.state.data.name}</Text>
-                </View>
-            );
-        } else { //is filler
-            return(
-                <View style={styles.item}>
-                    <Text>Am filler</Text>
-                </View>
-            );
+        switch(this.state.type) {
+            case "character":
+                return(
+                    <View style={styles.item}>
+                        <TouchableOpacity onPress={() => Alert.alert("Not functional yet")}>
+                            <View style={styles.iconSection}>
+                                <Image 
+                                    style={styles.image} 
+                                    source={Fire.shared.getChararacterPic(this.state.id)} 
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={styles.name}>{Fire.shared.getCharacterName(this.state.id)}</Text>
+                    </View>
+                );
+            case "lore":
+                return(
+                    <View style={styles.item}>
+                        <TouchableOpacity onPress={() => Alert.alert("Not functional yet")}>
+                            <View style={styles.iconSection}>
+                                <Icon 
+                                    name="md-document" 
+                                    color={Colors.darkGray} 
+                                    size={80}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={styles.name}>{Fire.shared.getLoreName(this.state.id)}</Text>
+                    </View>
+                );
+            case "section":
+                return(
+                    <View style={styles.item}>
+                        <TouchableOpacity onPress={() => Alert.alert("Not functional yet")}>
+                            <View style={styles.iconSection}>
+                                <Icon 
+                                    name="md-folder" 
+                                    color={Colors.darkGray} 
+                                    size={80}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={styles.name}>{Fire.shared.getSectionName(this.state.id)}</Text>
+                    </View>
+                );
+            default: 
+                return(
+                    <View style={styles.item}/>
+                );
         }
     }
 }
