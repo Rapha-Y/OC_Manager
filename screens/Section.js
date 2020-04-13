@@ -40,22 +40,17 @@ export default class Section extends Component {
             };
         });
         var contentArray = subsecArray.concat(charArray,loreArray);
-        while(contentArray.length%3 != 0) {
+        var fillerNumber = 3-contentArray.length%3;
+        while(fillerNumber != 0) {
             i++;
-            contentArray.concat({
+            contentArray = contentArray.concat({
                 key: i.toString(),
                 id: null,
                 type: "filler"
             });
+            fillerNumber--;
         }
         return contentArray;
-    }
-
-    isEmpty(section) {
-        if(section.length == 0) {
-            return true;
-        }
-        return false;
     }
     
     render() {
