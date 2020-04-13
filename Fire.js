@@ -62,11 +62,10 @@ class Fire {
         return user.description;
     }
 
-    //NOT WORKING AS INTENDED, FIX ASAP
     getRootSection(uid) {
-        function isRoot(uid) {
+        function isRoot(sid) {
             var matchList = sectionsectioncontains.filter(function (sec) {
-                return sec.uid == uid;
+                return sec.childid == sid;
             });
             if(matchList.length != 0) {
                 return false;
@@ -78,11 +77,11 @@ class Fire {
         var sectionList = sections.filter(function (sec) {
             return (sec.uid == uid);
         });
-        console.log("A: ", sectionList);
+        
         var root = sectionList.filter(function (sec) {
-            return (isRoot(uid));
+            return (isRoot(sec.sid));
         });
-        console.log("B: ", root);
+        
         return root[0].sid;
     }
 
