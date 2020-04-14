@@ -122,6 +122,11 @@ class Fire {
         return char.name;
     }
 
+    getChararacterPic(cid) {
+        var char = this.getCharacter(cid);
+        return char.avatar;
+    }
+
     getLore(cid) {
         var lore = lores.filter(function (lor) {
             return (lor.cid == cid);
@@ -133,11 +138,6 @@ class Fire {
     getLoreName(cid) {
         var lore = this.getLore(cid);
         return lore.name;
-    }
-
-    getChararacterPic(cid) {
-        var char = this.getCharacter(cid);
-        return char.avatar;
     }
 
     getSection(sid) {

@@ -5,7 +5,7 @@ export default class Lore extends Component {
     render() {
         return(
             <View>
-                <Text>Lore</Text>
+                <Text>Fill me in after the Feed page</Text>
             </View>
         );
     }

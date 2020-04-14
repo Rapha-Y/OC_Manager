@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import Header from '../components/Header';
 import Dropdown from '../components/Dropdown';
 import Summary from '../components/Summary';
@@ -7,13 +7,18 @@ import CharSection from '../components/CharSection';
 import Story from '../components/Story';
 
 export default class Character extends Component {
-    state = {
+    /*state = {
         data: this.props.route.params.data
-    }
+    }*/
 
     render() {
         return(
-            <ScrollView style={{flex: 1}}>
+            <View>
+                <Text>
+                    Rewrite me soon -ish
+                </Text>
+            </View>
+            /*<ScrollView style={{flex: 1}}>
                 <Header name={this.state.data.summary.name} />
                 <Dropdown 
                     name="Summary" 
@@ -57,7 +62,7 @@ export default class Character extends Component {
                         <CharSection data={this.state.data.relationships} />
                     }
                 />
-            </ScrollView>
+            </ScrollView>*/
         );
     }
 }

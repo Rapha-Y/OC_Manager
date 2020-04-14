@@ -17,7 +17,11 @@ export default class CreationListItem extends Component {
             case "character":
                 return(
                     <View style={styles.item}>
-                        <TouchableOpacity onPress={() => Alert.alert("Not functional yet")}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Character', {
+                                title: Fire.shared.getCharacterName(this.state.id),
+                                uid: this.state.uid,
+                                cid: this.state.id
+                            })}>
                             <View style={styles.iconSection}>
                                 <Image 
                                     style={styles.image} 
@@ -31,7 +35,7 @@ export default class CreationListItem extends Component {
             case "lore":
                 return(
                     <View style={styles.item}>
-                        <TouchableOpacity onPress={() => Alert.alert("Not functional yet")}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Lore')}>
                             <View style={styles.iconSection}>
                                 <Icon 
                                     name="md-document" 
