@@ -7,6 +7,7 @@ import Fire from '../Fire';
 
 export default class CreationListItem extends Component {
     state = {
+        uid: this.props.uid,
         id: this.props.id,
         type: this.props.type
     }
@@ -20,7 +21,7 @@ export default class CreationListItem extends Component {
                             <View style={styles.iconSection}>
                                 <Image 
                                     style={styles.image} 
-                                    source={Fire.shared.getChararacterPic(this.state.id)} 
+                                    source={{uri: Fire.shared.getChararacterPic(this.state.id)}} 
                                 />
                             </View>
                         </TouchableOpacity>
@@ -45,7 +46,13 @@ export default class CreationListItem extends Component {
             case "section":
                 return(
                     <View style={styles.item}>
-                        <TouchableOpacity onPress={() => Alert.alert("Not functional yet")}>
+                        <TouchableOpacity 
+                            onPress={() => this.props.navigation.push('Section', {
+                                title: Fire.shared.getSectionName(this.state.id),
+                                uid: this.state.uid,
+                                sid: this.state.id
+                            })}
+                        >
                             <View style={styles.iconSection}>
                                 <Icon 
                                     name="md-folder" 

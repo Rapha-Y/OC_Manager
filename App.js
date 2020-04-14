@@ -130,14 +130,14 @@ class CreationsTab extends Component {
         <Stack.Screen 
           name="Section" 
           component={Section} 
-          initialParams={{ uid: this.state.uid, sid: this.state.sid }}
-          options={{
-            title: "My Creations",
+          initialParams={{ uid: this.state.uid, sid: this.state.sid, title: "My Creations" }}
+          options={({ route }) => ({ 
+            title: route.params.title,
             headerStyle: styles.header,
             headerTintColor: Colors.white,
             headerTitleStyle: styles.headerText,
             headerTitleAlign: "center"
-          }} 
+          })} 
         />
         <Stack.Screen 
           name="Profile" 

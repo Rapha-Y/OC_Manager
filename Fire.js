@@ -126,11 +126,12 @@ class Fire {
         var lore = lores.filter(function (lor) {
             return (lor.cid == cid);
         });
+        console.log(lore);
         return lore[0];
     }
 
     getLoreName(cid) {
-        var lore = this.getCharacter(cid);
+        var lore = this.getLore(cid);
         return lore.name;
     }
 

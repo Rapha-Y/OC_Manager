@@ -3,7 +3,7 @@ import CreationList from '../components/CreationList';
 
 import Fire from '../Fire'
 
-export default class Section extends Component {
+export default class Section extends Component {    
     state = {
         uid: this.props.route.params.uid,
         sid: this.props.route.params.sid,
@@ -55,7 +55,11 @@ export default class Section extends Component {
     
     render() {
         return(
-            <CreationList navigation={this.props.navigation} data={this.getContentArray()} />
+            <CreationList 
+                navigation={this.props.navigation} 
+                uid={this.state.uid} 
+                data={this.getContentArray()} 
+            />
         );
     }
 }
