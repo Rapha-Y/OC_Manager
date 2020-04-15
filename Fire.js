@@ -11,6 +11,7 @@ import sections from './testData/sections';
 import sectionsectioncontains from './testData/sectionsectioncontains';
 import sectioncreationcontains from './testData/sectioncreationcontains';
 import lores from './testData/lores';
+import itemlists from './testData/itemlists';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -127,11 +128,27 @@ class Fire {
         return char.avatar;
     }
 
+    getCharDropdowns(cid) { //add function to order dropdown by position later
+        var dropdowns = itemlists.filter(function (list) {
+            return(list.cid == cid);
+        });
+        var dropdownIDs = dropdowns.map(function (dpdn) {
+            return dpdn.ssid;
+        });
+        return dropdownIDs;
+    }
+
+    getCharDropdownName(ssid) {
+        var dropdown = itemlists.filter(function (list) {
+            return(list.ssid == ssid);
+        });
+        return dropdown[0].name;
+    }
+
     getLore(cid) {
         var lore = lores.filter(function (lor) {
             return (lor.cid == cid);
         });
-        console.log(lore);
         return lore[0];
     }
 
