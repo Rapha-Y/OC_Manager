@@ -12,6 +12,8 @@ import sectionsectioncontains from './testData/sectionsectioncontains';
 import sectioncreationcontains from './testData/sectioncreationcontains';
 import lores from './testData/lores';
 import itemlists from './testData/itemlists';
+import listItems from './testData/items';
+import content from './testData/content.json';
 
 if(!global.btoa) { global.btoa = encode };
 if(!global.atob) { global.atob = decode };
@@ -143,6 +145,49 @@ class Fire {
             return(list.ssid == ssid);
         });
         return dropdown[0].name;
+    }
+
+    getCharDropdownDisplay(ssid) {
+        var dropdown = itemlists.filter(function (list) {
+            return(list.ssid == ssid);
+        });
+        return dropdown[0].display;
+    }
+
+    getCharDropdownItems(ssid) {
+        var items = listItems.filter(function (item) {
+            return(item.ssid == ssid);
+        });
+        var itemIDs = items.map(function (itm) {
+            return itm.iid;
+        });
+        return itemIDs;
+    }
+
+    getListItem(iid) {
+        var item = listItems.filter(function (itm) {
+            return(itm.iid == iid);
+        });
+        return item[0];
+    }
+
+    getListItemTitle(iid) {
+        var item = this.getListItem(iid);
+        return item.title;
+    }
+
+    getListItemContent(iid) {
+        var unorderedContent = content.filter(function (con) {
+            return(con.iid == iid);
+        });
+        var orderedContent = unorderedContent.sort(function (a, b) {
+            if(a.position < b.position) {
+                return -1;
+            } else { //assuming >0, could be interesting to add an error if ==0
+                return 1;
+            }
+        });
+        return orderedContent;
     }
 
     getLore(cid) {
