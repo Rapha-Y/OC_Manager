@@ -1,21 +1,46 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
+
+import CharSummary from '../components/CharSummary';
+import Colors from '../resources/Colors';
+
+import Fire from '../Fire';
 
 export default class Feed extends Component {
     state = {
         uid: this.props.route.params.uid
     }
 
+    renderSeparator = () => {
+        return(
+            <View
+                style={styles.itemSeparator}
+            />  
+        );
+    }
+
     render() {
-        return (
-            <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-                <Text>Hello, user {this.state.uid}!</Text>
-                <TouchableOpacity onPress={() => Alert.alert("Not working", "Make me functional")}>
-                    <Text style={{borderWidth: 1, padding: 5, margin: 5}}>
-                        Press me to log out
-                    </Text>
-                </TouchableOpacity>
-            </View>
+        return(
+            <FlatList
+                data={Fire.shared.getAllCharacters()}
+                renderItem={({ item }) => 
+                    <CharSummary 
+                        navigation={this.props.navigation}
+                        uid={this.state.uid}
+                        cid={item}        
+                    />
+                }
+                keyExtractor={item => item}
+                ItemSeparatorComponent={ this.renderSeparator }
+            />
         );
     } 
 }
+
+const styles = StyleSheet.create({
+    itemSeparator: {
+        height: 8,
+        width: "100%",
+        backgroundColor: Colors.defaultGray
+    }
+});

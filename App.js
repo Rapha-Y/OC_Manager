@@ -51,12 +51,13 @@ class FeedTab extends Component {
           name="Character" 
           component={Character} 
           initialParams={{ uid: this.state.uid }}
-          options={{
+          options={({ route }) => ({
+            title: route.params.title,
             headerStyle: styles.header,
             headerTintColor: Colors.white,
             headerTitleStyle: styles.headerText,
             headerTitleAlign: "center"
-          }} 
+          })} 
         />
         <Stack.Screen 
           name="Lore" 

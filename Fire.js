@@ -22,6 +22,13 @@ class Fire {
 
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
+    getAllCharacters() {
+        var charList = characters.map(function (char) {
+            return char.cid;
+        });
+        return charList;
+    }
+    
     getUID(email, password) {
         var user = users.filter(function (usr) {
             return (usr.email == email && usr.password == password);
@@ -128,6 +135,11 @@ class Fire {
     getChararacterPic(cid) {
         var char = this.getCharacter(cid);
         return char.avatar;
+    }
+
+    getCharacterDescript(cid) {
+        var char = this.getCharacter(cid);
+        return char.description;
     }
 
     getCharDropdowns(cid) { //add function to order dropdown by position later
