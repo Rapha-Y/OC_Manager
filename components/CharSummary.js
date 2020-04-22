@@ -24,11 +24,11 @@ export default class CharSummary extends Component {
                     <View style={styles.imageSection}>
                         <Image source={{uri: this.state.avatar}} style={styles.avatar} />
                     </View>
-                    <View style={styles.textSection}>
-                        <Text style={styles.name}>{this.state.name}</Text>
-                        <Text style={styles.description}>{this.state.description}</Text>
-                    </View>
                 </TouchableOpacity>
+                <View style={styles.textSection}>
+                    <Text style={styles.name}>{this.state.name}</Text>
+                    <Text style={styles.description}>{this.state.description}</Text>
+                </View>
             </View>
         );
     }
