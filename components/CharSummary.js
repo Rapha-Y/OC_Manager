@@ -15,21 +15,21 @@ export default class CharSummary extends Component {
 
     render() {
         return (
-            <View style={styles.content}>
-                <TouchableOpacity onPress={() => {this.props.navigation.navigate("Character", {
-                    title: Fire.shared.getCharacterName(this.state.cid),
-                    uid: this.state.uid,
-                    cid: this.state.cid
-                })}}>
+            <TouchableOpacity onPress={() => {this.props.navigation.navigate("Character", {
+                title: Fire.shared.getCharacterName(this.state.cid),
+                uid: this.state.uid,
+                cid: this.state.cid
+            })}}>
+                <View style={styles.content}>
                     <View style={styles.imageSection}>
                         <Image source={{uri: this.state.avatar}} style={styles.avatar} />
                     </View>
-                </TouchableOpacity>
-                <View style={styles.textSection}>
-                    <Text style={styles.name}>{this.state.name}</Text>
-                    <Text style={styles.description}>{this.state.description}</Text>
+                    <View style={styles.textSection}>
+                        <Text style={styles.name}>{this.state.name}</Text>
+                        <Text style={styles.description}>{this.state.description}</Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
