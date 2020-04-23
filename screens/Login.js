@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Fire from '../Fire';
+import * as firebase from 'firebase';
 
 import Colors from "../resources/Colors";
 import UserInput from "../components/UserInput";
@@ -37,20 +38,21 @@ export default class Login extends Component {
         },
     };
 
-    logInAttempt() {
-        var uid = Fire.shared.getUID(this.state.email, this.state.password);
-        if(uid == null) {
-            this.setState({
-                error: { exists: true, message: "Incorrect e-mail or password" }
-            });
-        } else {
-            this.placeholderLogIn(uid);
-        }
-    }
+    logIn() {
+        var handlerFunc = this.props.route.params.uidHandler;
 
-    placeholderLogIn(uid) {
-        this.props.route.params.logIn(uid);
-        //this.props.route.params.rootNavigation.navigate("App", { uid: uid });
+        firebase
+                .auth()
+                .signInWithEmailAndPassword(this.state.email, this.state.password)
+                .catch(err => {
+                    this.setState({ error: { exists: true, message: err.message } })
+                })
+                .then(function() {
+                    var uid = Fire.shared.uid;
+                    if(uid) {
+                        handlerFunc(uid);           
+                    }
+                });
     }
 
     render() {
@@ -96,7 +98,7 @@ export default class Login extends Component {
                     {errorDisplay(this.state.error.exists, this.state.error.message)}
                     <View style={styles.submit}>
                         <UserSubmit 
-                            submit={() => this.logInAttempt()}
+                            submit={() => this.logIn()}
                             text="Log In"
                             style={styles.loginButton}
                         />

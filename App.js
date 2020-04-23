@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import * as firebase from 'firebase';
 
 import Character from './screens/Character';
-import Creations from './screens/Creations';
 import Feed from './screens/Feed';
 import Section from './screens/Section';
 import Login from './screens/Login';
@@ -19,6 +18,8 @@ import Colors from './resources/Colors';
 
 import firebaseConfig from "./important-info/apiKey";
 import Fire from './Fire';
+
+import TempLogOut from "./screens/TempLogOut";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -293,7 +294,7 @@ class AuthStack extends Component {
           component={Login} 
           initialParams={{ 
             rootNavigation: this.props.navigation, 
-            logIn: this.props.route.params.logIn
+            uidHandler: this.props.route.params.uidHandler
           }} 
         />
         <Stack.Screen name="Signin" component={Signin} />
@@ -304,30 +305,33 @@ class AuthStack extends Component {
 
 export default class FullApp extends Component {
   state = {
-    isLoggedIn: false,
-    uid: ""
+    uid: Fire.shared.uid
   }
   
-  logIn(uid) {
-    this.setState({ isLoggedIn: true });
-    this.setState({ uid });
+  uidHandler(id) {
+    this.setState({ uid: id });
   }
 
   render() {
     return(
       <NavigationContainer>
         <Stack.Navigator headerMode={"none"}>
-          {this.state.isLoggedIn ? (
-            <Stack.Screen 
+          {this.state.uid ? (
+            <Stack.Screen
+              name="Temp"
+              component={TempLogOut}
+              initialParams={{ uid: this.state.uid, uidHandler: this.uidHandler.bind(this) }}
+            />
+            /*<Stack.Screen 
               name="App" 
               component={AppContainer} 
               initialParams={{ uid: this.state.uid }}
-            />
+            />*/
           ) : (
             <Stack.Screen 
               name="Auth" 
               component={AuthStack} 
-              initialParams={{ logIn: this.logIn.bind(this) }} 
+              initialParams={{ uidHandler: this.uidHandler.bind(this) }} 
             />
           )}
         </Stack.Navigator>
