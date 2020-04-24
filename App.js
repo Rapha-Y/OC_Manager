@@ -312,21 +312,21 @@ export default class FullApp extends Component {
     this.setState({ uid: id });
   }
 
+  //delete this later
+  componentDidMount() {
+    //console.log(this.uid);
+  }
+
   render() {
     return(
       <NavigationContainer>
         <Stack.Navigator headerMode={"none"}>
           {this.state.uid ? (
-            <Stack.Screen
-              name="Temp"
-              component={TempLogOut}
-              initialParams={{ uid: this.state.uid, uidHandler: this.uidHandler.bind(this) }}
-            />
-            /*<Stack.Screen 
+            <Stack.Screen 
               name="App" 
               component={AppContainer} 
               initialParams={{ uid: this.state.uid }}
-            />*/
+            />
           ) : (
             <Stack.Screen 
               name="Auth" 

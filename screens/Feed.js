@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Text } from 'react-native';
 
 import CharSummary from '../components/CharSummary';
 import Colors from '../resources/Colors';
@@ -8,7 +8,13 @@ import Fire from '../Fire';
 
 export default class Feed extends Component {
     state = {
-        uid: this.props.route.params.uid
+        uid: this.props.route.params.uid,
+        charList: []
+    }
+
+    async componentDidMount() {
+        const charList = await Fire.shared.getAllCharacters(this.props.route.params.uid);
+        this.setState({ charList });
     }
 
     renderSeparator = () => {
@@ -22,13 +28,18 @@ export default class Feed extends Component {
     render() {
         return(
             <FlatList
-                data={Fire.shared.getAllCharacters()}
-                renderItem={({ item }) => 
+                data={this.state.charList}
+                renderItem={({ item }) =>
+                    <View>
+                        <Text>{item}</Text>
+                    </View> 
+                    /*
                     <CharSummary 
                         navigation={this.props.navigation}
                         uid={this.state.uid}
                         cid={item}        
                     />
+                    */
                 }
                 keyExtractor={item => item}
                 ItemSeparatorComponent={ this.renderSeparator }

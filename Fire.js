@@ -20,15 +20,25 @@ if(!global.atob) { global.atob = decode };
 
 class Fire {
 
+    constructor() {
+        if(!firebase.app.length) {
+            firebase.initializeApp(FirebaseKeys);
+        }
+    }
+
+    //maybe return more than just the id? Could be interesting
+    async getAllCharacters() {
+        //try might be unnecessary, error handling is useful, though
+        try {
+            const response = await this.firestore.collection("characters").get();
+            return response.docs.map(doc => doc.id);
+        } catch (err) {
+            console.log("Error: ", err);
+        }
+    }
+
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
-    getAllCharacters() {
-        var charList = characters.map(function (char) {
-            return char.cid;
-        });
-        return charList;
-    }
-    
     getUID(email, password) {
         var user = users.filter(function (usr) {
             return (usr.email == email && usr.password == password);
@@ -290,12 +300,6 @@ class Fire {
         }
     }
     //temp func end
-
-    constructor() {
-        if(!firebase.app.length) {
-            firebase.initializeApp(FirebaseKeys);
-        }
-    }
 
     createUser = async user => {
         let remoteUri = null;
