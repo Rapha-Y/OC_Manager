@@ -9,7 +9,7 @@ import Fire from '../Fire';
 export default class Feed extends Component {
     state = {
         uid: this.props.route.params.uid,
-        charList: []
+        charList: null
     }
 
     async componentDidMount() {
@@ -26,25 +26,28 @@ export default class Feed extends Component {
     }
 
     render() {
-        return(
-            <FlatList
-                data={this.state.charList}
-                renderItem={({ item }) =>
-                    <View>
-                        <Text>{item}</Text>
-                    </View> 
-                    /*
-                    <CharSummary 
-                        navigation={this.props.navigation}
-                        uid={this.state.uid}
-                        cid={item}        
-                    />
-                    */
-                }
-                keyExtractor={item => item}
-                ItemSeparatorComponent={ this.renderSeparator }
-            />
-        );
+        if(this.state.charList == null){
+            return(
+                <View>
+                    <Text>Loading... (Please pretty me up)</Text>
+                </View>
+            );
+        } else {
+            return(
+                <FlatList
+                    data={this.state.charList}
+                    renderItem={({ item }) =>
+                        <CharSummary 
+                            navigation={this.props.navigation}
+                            uid={this.state.uid}
+                            charInfo={item}        
+                        />
+                    }
+                    keyExtractor={item => item.cid}
+                    ItemSeparatorComponent={ this.renderSeparator }
+                />
+            );
+        }
     } 
 }
 

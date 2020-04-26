@@ -31,7 +31,14 @@ class Fire {
         //try might be unnecessary, error handling is useful, though
         try {
             const response = await this.firestore.collection("characters").get();
-            return response.docs.map(doc => doc.id);
+            return response.docs.map(function(doc) {
+                return {
+                    cid: doc.id,
+                    avatar: doc.data().avatar,
+                    name: doc.data().name,
+                    description: doc.data().description
+                }
+            });
         } catch (err) {
             console.log("Error: ", err);
         }

@@ -7,16 +7,16 @@ import Fire from '../Fire';
 export default class CharSummary extends Component {
     state = {
         uid: this.props.uid,
-        cid: this.props.cid,
-        name: Fire.shared.getCharacterName(this.props.cid), 
-        avatar: Fire.shared.getChararacterPic(this.props.cid),
-        description: Fire.shared.getCharacterDescript(this.props.cid)
+        cid: this.props.charInfo.cid,
+        name: this.props.charInfo.name,
+        avatar: this.props.charInfo.avatar,
+        description: this.props.charInfo.description
     }
 
     render() {
         return (
             <TouchableOpacity onPress={() => {this.props.navigation.navigate("Character", {
-                title: Fire.shared.getCharacterName(this.state.cid),
+                title: /*Fire.shared.getCharacterName(this.state.cid)*/ "Fix me later",
                 uid: this.state.uid,
                 cid: this.state.cid
             })}}>
