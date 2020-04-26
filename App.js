@@ -314,7 +314,7 @@ export default class FullApp extends Component {
 
   //delete this later
   componentDidMount() {
-    //console.log(this.uid);
+    console.log("id: ", this.uid);
   }
 
   render() {

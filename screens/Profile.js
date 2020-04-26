@@ -5,64 +5,69 @@ import Colors from '../resources/Colors';
 import NumShortener from '../resources/NumShortener';
 import Fire from '../Fire';
 
-const userInfo = {
-    cover: "https://www.vainglorygame.com/wp-content/uploads/2016/12/Joule_Lore_Heistp3.jpg",
-    avatar: "https://brokenmyth.net/wp-content/uploads/image-140.png",
-    username: "Joule",
-    tag: "#ComingThrough",
-    description: "What? You’ve never seen a street kid riding a top secret military grade walking death machine before? You must live in a hole.",
-    characters: 5,
-    followers: 12,
-    likes: 150000
-}
-
 export default class Profile extends Component {
     state = {
         uid: this.props.route.params.uid,
-
-        username: Fire.shared.getUsername(this.props.route.params.uid),
+        userData: null, 
+        /*username: Fire.shared.getUsername(this.props.route.params.uid),
         usertag: Fire.shared.getUsertag(this.props.route.params.uid),
         avatar: Fire.shared.getAvatar(this.props.route.params.uid),
         cover: Fire.shared.getCover(this.props.route.params.uid),
-        description: Fire.shared.getDescription(this.props.route.params.uid),
+        description: Fire.shared.getDescription(this.props.route.params.uid),*/
 
-        characterNumber: Fire.shared.countCharacters(this.props.route.params.uid),
-        followerNumber: Fire.shared.countFollowers(this.props.route.params.uid)
+        characterNumber: 0, //Fire.shared.countCharacters(this.props.route.params.uid),
+        followerNumber: 0 //Fire.shared.countFollowers(this.props.route.params.uid)
+    }
+
+    async componentDidMount() {
+        const userData = await Fire.shared.getUserData(this.props.route.params.uid);
+        this.setState({ userData });
     }
 
     render() {
-        return(
-            <View style={styles.wrapper}>
-                <View style={styles.body}>
-                    <Image 
-                        source={{uri: this.state.cover}}
-                        style={styles.cover}
-                    />
-                    <Image
-                        source={{uri: this.state.avatar}}
-                        style={styles.avatar}
-                    />
+        if(this.state.userData == null) {
+            return(
+                <View>
+                    <Text>Loading... (Please pretty me up)</Text>
                 </View>
-                <View style={styles.summary}>
-                    <Text style={styles.username}>
-                        {this.state.username}
-                    </Text>
-                    <Text style={styles.tag}>
-                        @{this.state.usertag}
-                    </Text>
-                    <Text style={styles.description}>
-                        {this.state.description}
-                    </Text>
-                    <View style={styles.stats}>
-                        <Text style={styles.firstStat}>{NumShortener(this.state.characterNumber)}</Text>
-                        <Text> Characters</Text>
-                        <Text style={styles.stat}>{NumShortener(this.state.followerNumber)}</Text>
-                        <Text> Followers</Text>
+            );
+        } else {
+            return(
+                /*<View>
+                    <Text>{this.state.username}</Text>
+                </View>*/
+                <View style={styles.wrapper}>
+                    <View style={styles.body}>
+                        <Image 
+                            source={{uri: this.state.userData.cover}}
+                            style={styles.cover}
+                        />
+                        <Image
+                            source={{uri: this.state.userData.avatar}}
+                            style={styles.avatar}
+                        />
                     </View>
+                    <View style={styles.summary}>
+                        <Text style={styles.username}>
+                            {this.state.userData.username}
+                        </Text>
+                        <Text style={styles.tag}>
+                            @{this.state.userData.usertag}
+                        </Text>
+                        <Text style={styles.description}>
+                            {this.state.userData.description}
+                        </Text>
+                        <View style={styles.stats}>
+                            <Text style={styles.firstStat}>{NumShortener(this.state.characterNumber)}</Text>
+                            <Text> Characters</Text>
+                            <Text style={styles.stat}>{NumShortener(this.state.followerNumber)}</Text>
+                            <Text> Followers</Text>
+                        </View>
+                    </View>
+                    <ProfileTabs/>
                 </View>
-                <ProfileTabs/>
-            </View>
-        );
+            );
+        }
     }
 }
 

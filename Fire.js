@@ -26,9 +26,8 @@ class Fire {
         }
     }
 
-    //maybe return more than just the id? Could be interesting
+    //"try"s might be unnecessary, error handling is useful, though
     async getAllCharacters() {
-        //try might be unnecessary, error handling is useful, though
         try {
             const response = await this.firestore.collection("characters").get();
             return response.docs.map(function(doc) {
@@ -44,50 +43,24 @@ class Fire {
         }
     }
 
-    //temporary functions - the calls made to these functions are to be kept, but their way of handling
-    //data shall be updated to store/fetch data from firebase instead
-    getUID(email, password) {
-        var user = users.filter(function (usr) {
-            return (usr.email == email && usr.password == password);
-        });
-        if(user.length == 0) {
-            return null;
-        } else {
-            return user[0].uid;
+    async getUserData(uid) {
+        try {
+            const response = await this.firestore.collection("users").doc(uid).get();
+            return {
+                //code may seem redundant, but allows for easier attribute name changes
+                avatar: response.data().avatar,
+                cover: response.data().cover,
+                username: response.data().username,
+                usertag: response.data().usertag,
+                description: response.data().description
+            };
+        } catch (err) {
+            console.log("Error: ", err);
         }
     }
 
-    getUser(uid) {
-        var user = users.filter(function (usr) {
-            return (usr.uid == uid);
-        });
-        return user[0];
-    }
-
-    getUsername(uid) {
-        var user = this.getUser(uid);
-        return user.username;
-    }
-
-    getUsertag(uid) {
-        var user = this.getUser(uid);
-        return user.usertag;
-    }
-
-    getAvatar(uid) {
-        var user = this.getUser(uid);
-        return user.avatar;
-    }
-
-    getCover(uid) {
-        var user = this.getUser(uid);
-        return user.cover;
-    }
-
-    getDescription(uid) {
-        var user = this.getUser(uid);
-        return user.description;
-    }
+    //temporary functions - the calls made to these functions are to be kept, but their way of handling
+    //data shall be updated to store/fetch data from firebase instead
 
     getRootSection(uid) {
         function isRoot(sid) {
