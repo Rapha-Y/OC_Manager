@@ -6,7 +6,6 @@ import { decode, encode } from 'base-64';
 //temporary data
 import users from './testData/users';
 import characters from './testData/characters';
-import useruserfollows from './testData/useruserfollows';
 import sections from './testData/sections';
 import sectionsectioncontains from './testData/sectionsectioncontains';
 import sectioncreationcontains from './testData/sectioncreationcontains';
@@ -59,6 +58,26 @@ class Fire {
         }
     }
 
+    async countCharacters(uid) { //might be worth to separate character list from count later
+        try {
+            const response = await this.firestore.collection("characters").where("user", "==", uid).get();
+            return response.size;
+        } catch (err) {
+            console.log("Error: ", err);
+        }
+    }
+
+    async countFollowers(uid) { //might be worth to separate follower list from count later
+        try {
+            const response = await this.firestore.collection("user_user_follows")
+                                                 .where("followed", "==", uid)
+                                                 .get();
+            return response.size;
+        } catch (err) {
+            console.log("Error: ", err);
+        }
+    }
+
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
 
@@ -83,20 +102,6 @@ class Fire {
         });
         
         return root[0].sid;
-    }
-
-    countCharacters(uid) { //might be worth to separate character list from count later
-        var characterList = characters.filter(function (char) {
-            return (char.uid == uid);
-        });
-        return characterList.length;
-    }
-
-    countFollowers(uid) { //might be worth to separate follower list from count later
-        var followerList = useruserfollows.filter(function (flw) {
-            return (flw.followedid == uid);
-        });
-        return followerList.length;
     }
 
     creationIsIn(cid, lnkList) {

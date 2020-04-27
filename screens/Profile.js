@@ -8,24 +8,25 @@ import Fire from '../Fire';
 export default class Profile extends Component {
     state = {
         uid: this.props.route.params.uid,
-        userData: null, 
-        /*username: Fire.shared.getUsername(this.props.route.params.uid),
-        usertag: Fire.shared.getUsertag(this.props.route.params.uid),
-        avatar: Fire.shared.getAvatar(this.props.route.params.uid),
-        cover: Fire.shared.getCover(this.props.route.params.uid),
-        description: Fire.shared.getDescription(this.props.route.params.uid),*/
+        userData: null,
 
-        characterNumber: 0, //Fire.shared.countCharacters(this.props.route.params.uid),
-        followerNumber: 0 //Fire.shared.countFollowers(this.props.route.params.uid)
+        characterNumber: null,
+        followerNumber: null
     }
 
     async componentDidMount() {
-        const userData = await Fire.shared.getUserData(this.props.route.params.uid);
+        const userData = await Fire.shared.getUserData(this.state.uid);
+        const characterNumber = await Fire.shared.countCharacters(this.state.uid);
+        const followerNumber = await Fire.shared.countFollowers(this.state.uid);
         this.setState({ userData });
+        this.setState({ characterNumber });
+        this.setState({ followerNumber });
     }
 
     render() {
-        if(this.state.userData == null) {
+        if(this.state.userData == null
+        || this.state.characterNumber == null 
+        || this.state.followerNumber == null) {
             return(
                 <View>
                     <Text>Loading... (Please pretty me up)</Text>
@@ -33,9 +34,6 @@ export default class Profile extends Component {
             );
         } else {
             return(
-                /*<View>
-                    <Text>{this.state.username}</Text>
-                </View>*/
                 <View style={styles.wrapper}>
                     <View style={styles.body}>
                         <Image 
