@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -98,12 +99,12 @@ class FeedTab extends Component {
   }
 }
 
-class CreationsTab extends Component {
+class ReadyCreationsTab extends Component {
   state = {
     uid: this.props.route.params.uid,
-    sid: Fire.shared.getRootSection(this.props.route.params.uid)
+    sid: this.props.route.params.sid
   }
-  
+
   render() {
     return(
       <Stack.Navigator initialRouteName="Section">
@@ -117,7 +118,7 @@ class CreationsTab extends Component {
             headerTintColor: Colors.white,
             headerTitleStyle: styles.headerText,
             headerTitleAlign: "center"
-          })} 
+          })}
         />
         <Stack.Screen 
           name="Lore" 
@@ -154,6 +155,66 @@ class CreationsTab extends Component {
             headerTitleAlign: "center"
           }} 
         />
+      </Stack.Navigator>
+    );
+  }
+}
+
+class PlaceholderCreationsTab extends Component {
+  state = {
+    uid: this.props.route.params.uid,
+    sid: this.props.route.params.sid
+  }
+
+  render() {
+    return(
+      <Stack.Navigator initialRouteName="Section">
+        <Stack.Screen 
+          name="Section" 
+          component={Section} 
+          initialParams={{ uid: this.state.uid, sid: this.state.sid, title: "My Creations" }}
+          options={({ route }) => ({ 
+            title: route.params.title,
+            headerStyle: styles.header,
+            headerTintColor: Colors.white,
+            headerTitleStyle: styles.headerText,
+            headerTitleAlign: "center"
+          })} 
+        />
+      </Stack.Navigator>
+    );
+  }
+}
+
+//the "switch navigator used in this section might not be a good way to await for componentDidMount"
+//but if it's kept, at least the transition animation should be removed
+class CreationsTab extends Component {
+  state = {
+    uid: this.props.route.params.uid,
+    sid: null
+  }
+
+  async componentDidMount() {
+    const sid = await Fire.shared.getRootSection(this.state.uid);
+    this.setState({ sid });
+  }
+  
+  render() {
+    return(
+      <Stack.Navigator headerMode={"none"}>
+        {this.state.sid ? (
+          <Stack.Screen 
+            name="Ready" 
+            component={ReadyCreationsTab} 
+            initialParams={{ uid: this.state.uid, sid: this.state.sid }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Placeholder"
+            component={PlaceholderCreationsTab}
+            initialParams={{ uid: this.state.uid, sid: this.state.sid }}
+          />
+        )}
       </Stack.Navigator>
     );
   }

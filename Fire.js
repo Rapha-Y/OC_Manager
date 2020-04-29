@@ -78,42 +78,52 @@ class Fire {
         }
     }
 
+    async getRootSection(uid) {
+        try {
+            const response = await this.firestore.collection("sections")
+                                                 .where("user", "==", uid)
+                                                 .where("root", "==", true)
+                                                 .get();
+            if(response.size != 1) {
+                console.log("Error: User has number of root sections different than 1");
+                return ""; //note fore the future:
+                           //make a blank cid return lead to the rendering of an error page
+            } else {
+                const id = response.docs.map(function(doc) {
+                    return doc.id;
+                });
+                return id[0];
+            }
+        } catch (err) {
+            console.log("Error: ", err);
+        }
+    }
+
+    async getSectionCharacters(sid) {
+        try {
+            const response = await this.firestore.collection("sec_char_contains")
+                                                 .where("sec", "==", sid)
+                                                 .get();
+            var charList = response.docs.map(function(doc) {
+                return doc.data().char;
+            });
+            var charDataList = [];
+            for(var i=0;i<charList.length;i++) {
+                const response = await this.firestore.collection("characters").doc(charList[i]).get();
+                charDataList.push({
+                    cid: response.id,
+                    avatar: response.data().avatar,
+                    name: response.data().name
+                });
+            }
+            return charDataList;
+        } catch(err) {
+            console.log("Error: ", err);
+        }
+    }
+
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
-
-    getRootSection(uid) {
-        function isRoot(sid) {
-            var matchList = sectionsectioncontains.filter(function (sec) {
-                return sec.childid == sid;
-            });
-            if(matchList.length != 0) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        var sectionList = sections.filter(function (sec) {
-            return (sec.uid == uid);
-        });
-        
-        var root = sectionList.filter(function (sec) {
-            return (isRoot(sec.sid));
-        });
-        
-        return root[0].sid;
-    }
-
-    creationIsIn(cid, lnkList) {
-        var matchList = lnkList.filter(function (lnk) {
-            return (lnk.cid == cid);
-        });
-        if(matchList.length == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     getCharacter(cid) {
         var char = characters.filter(function (chr) {
@@ -221,21 +231,7 @@ class Fire {
         return section.name;
     }
 
-    getSectionCharacters(sid) {
-        var self = this;
-        var linkList = sectioncreationcontains.filter(function (lnk) {
-            return (lnk.sid == sid);
-        });
-        var characterList = characters.filter(function (char) {
-            return (self.creationIsIn(char.cid, linkList));
-        });
-        var charIdList = characterList.map(function (char) {
-            return char.cid;
-        });
-        return charIdList;
-    }
-
-    getSectionLores(sid) {
+    /*getSectionLores(sid) {
         var self = this;
         var linkList = sectioncreationcontains.filter(function (lnk) {
             return (lnk.sid == sid);
@@ -247,9 +243,9 @@ class Fire {
             return lor.cid;
         });
         return loreIdList;
-    }
+    }*/
 
-    sectionIsIn(sid, lnkList) {
+    /*sectionIsIn(sid, lnkList) {
         var matchList = lnkList.filter(function (lnk) {
             return (lnk.childid == sid);
         });
@@ -258,9 +254,9 @@ class Fire {
         } else {
             return true;
         }
-    }
+    }*/
 
-    getSubsections(sid) {
+    /*getSubsections(sid) {
         var self = this;
         var linkList = sectionsectioncontains.filter(function (lnk) {
             return (lnk.parentid == sid);
@@ -272,7 +268,7 @@ class Fire {
             return sec.sid;
         });
         return secIdList;
-    }
+    }*/
 
     emailExists(email) {
         var user = users.filter(function (usr) {

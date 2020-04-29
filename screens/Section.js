@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 import CreationList from '../components/CreationList';
 
 import Fire from '../Fire'
@@ -7,13 +8,22 @@ export default class Section extends Component {
     state = {
         uid: this.props.route.params.uid,
         sid: this.props.route.params.sid,
-        characters: Fire.shared.getSectionCharacters(this.props.route.params.sid),
-        lores: Fire.shared.getSectionLores(this.props.route.params.sid),
-        subsections: Fire.shared.getSubsections(this.props.route.params.sid)
+
+        characters: null,
+        lores: null,
+        subsections: null
+        /*lores: Fire.shared.getSectionLores(this.props.route.params.sid),
+        subsections: Fire.shared.getSubsections(this.props.route.params.sid)*/
+    }
+
+    async componentDidMount() {
+        const characters = await Fire.shared.getSectionCharacters(this.state.sid);
+        this.setState({ characters });
+        console.log("Characters: ", characters);
     }
 
     //could make use of a filter to order content by type, date, name, etc
-    getContentArray() {
+    /*getContentArray() {
         var i = 0;
         var charArray = this.state.characters.map(function(cid) {
             i++;
@@ -51,15 +61,29 @@ export default class Section extends Component {
             fillerNumber--;
         }
         return contentArray;
-    }
+    }*/
     
     render() {
-        return(
-            <CreationList 
-                navigation={this.props.navigation} 
-                uid={this.state.uid} 
-                data={this.getContentArray()} 
-            />
-        );
+        if(this.state.sid == null 
+        || this.state.characters == null 
+        /*|| this.state.lores == null
+        || this.state.subsections == null*/) {
+            return(
+                <View>
+                    <Text>Loading... (Please pretty me up)</Text>
+                </View>
+            );
+        } else {
+            return(
+                <View>
+                    <Text>Loaded!</Text>
+                </View>
+                /*<CreationList 
+                    navigation={this.props.navigation} 
+                    uid={this.state.uid} 
+                    data={this.getContentArray()} 
+                />*/
+            );
+        }
     }
 }
