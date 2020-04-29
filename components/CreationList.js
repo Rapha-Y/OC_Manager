@@ -18,6 +18,8 @@ export default class CreationList extends Component {
                         navigation={this.props.navigation} 
                         uid={this.state.uid}
                         id={item.id} 
+                        avatar={item.avatar}
+                        name={item.name}
                         type={item.type} 
                     />
                 }

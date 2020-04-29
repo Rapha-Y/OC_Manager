@@ -9,6 +9,8 @@ export default class CreationListItem extends Component {
     state = {
         uid: this.props.uid,
         id: this.props.id,
+        avatar: this.props.avatar,
+        name: this.props.name,
         type: this.props.type
     }
 
@@ -18,18 +20,18 @@ export default class CreationListItem extends Component {
                 return(
                     <View style={styles.item}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Character', {
-                                title: Fire.shared.getCharacterName(this.state.id),
+                                title: this.state.name,
                                 uid: this.state.uid,
                                 cid: this.state.id
                             })}>
                             <View style={styles.iconSection}>
                                 <Image 
                                     style={styles.image} 
-                                    source={{uri: Fire.shared.getChararacterPic(this.state.id)}} 
+                                    source={{uri: this.state.avatar}} 
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Text style={styles.name}>{Fire.shared.getCharacterName(this.state.id)}</Text>
+                        <Text style={styles.name}>{this.state.name}</Text>
                     </View>
                 );
             case "lore":
@@ -44,7 +46,7 @@ export default class CreationListItem extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Text style={styles.name}>{Fire.shared.getLoreName(this.state.id)}</Text>
+                        <Text style={styles.name}>{this.state.name}</Text>
                     </View>
                 );
             case "section":
@@ -52,7 +54,7 @@ export default class CreationListItem extends Component {
                     <View style={styles.item}>
                         <TouchableOpacity 
                             onPress={() => this.props.navigation.push('Section', {
-                                title: Fire.shared.getSectionName(this.state.id),
+                                title: this.state.name,
                                 uid: this.state.uid,
                                 sid: this.state.id
                             })}
@@ -65,7 +67,7 @@ export default class CreationListItem extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Text style={styles.name}>{Fire.shared.getSectionName(this.state.id)}</Text>
+                        <Text style={styles.name}>{this.state.name}</Text>
                     </View>
                 );
             default: 

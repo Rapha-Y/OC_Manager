@@ -9,43 +9,50 @@ export default class Section extends Component {
         uid: this.props.route.params.uid,
         sid: this.props.route.params.sid,
 
-        characters: null,
-        lores: null,
-        subsections: null
-        /*lores: Fire.shared.getSectionLores(this.props.route.params.sid),
-        subsections: Fire.shared.getSubsections(this.props.route.params.sid)*/
+        characters: null, //{cid, avatar, name}
+        lores: null, //{lid, name}
+        subsections: null //{sid, name}
     }
 
     async componentDidMount() {
         const characters = await Fire.shared.getSectionCharacters(this.state.sid);
+        const lores = await Fire.shared.getSectionLores(this.state.sid);
+        const subsections = await Fire.shared.getSubsections(this.state.sid);
         this.setState({ characters });
-        console.log("Characters: ", characters);
+        this.setState({ lores });
+        this.setState({ subsections });
     }
 
     //could make use of a filter to order content by type, date, name, etc
-    /*getContentArray() {
+    getContentArray() {
         var i = 0;
-        var charArray = this.state.characters.map(function(cid) {
+        var charArray = this.state.characters.map(function(char) {
             i++;
             return {
                 key: i.toString(),
-                id: cid,
+                id: char.cid,
+                avatar: char.avatar,
+                name: char.name,
                 type: "character"
             };
         });
-        var loreArray = this.state.lores.map(function (cid) {
+        var loreArray = this.state.lores.map(function (lore) {
             i++;
             return {
                 key: i.toString(),
-                id: cid,
+                id: lore.lid,
+                avatar: null,
+                name: lore.name,
                 type: "lore"
             };
         });
-        var subsecArray = this.state.subsections.map(function (sid) {
+        var subsecArray = this.state.subsections.map(function (sec) {
             i++;
             return {
                 key: i.toString(),
-                id: sid,
+                id: sec.sid,
+                avatar: null,
+                name: sec.name,
                 type: "section"
             };
         });
@@ -56,18 +63,20 @@ export default class Section extends Component {
             contentArray = contentArray.concat({
                 key: i.toString(),
                 id: null,
+                avatar: null,
+                name: null,
                 type: "filler"
             });
             fillerNumber--;
         }
         return contentArray;
-    }*/
+    }
     
     render() {
         if(this.state.sid == null 
         || this.state.characters == null 
-        /*|| this.state.lores == null
-        || this.state.subsections == null*/) {
+        || this.state.lores == null
+        || this.state.subsections == null) {
             return(
                 <View>
                     <Text>Loading... (Please pretty me up)</Text>
@@ -75,14 +84,11 @@ export default class Section extends Component {
             );
         } else {
             return(
-                <View>
-                    <Text>Loaded!</Text>
-                </View>
-                /*<CreationList 
+                <CreationList 
                     navigation={this.props.navigation} 
                     uid={this.state.uid} 
                     data={this.getContentArray()} 
-                />*/
+                />
             );
         }
     }

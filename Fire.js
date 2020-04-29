@@ -101,24 +101,68 @@ class Fire {
 
     async getSectionCharacters(sid) {
         try {
-            const response = await this.firestore.collection("sec_char_contains")
+            const response_a = await this.firestore.collection("sec_char_contains")
                                                  .where("sec", "==", sid)
                                                  .get();
-            var charList = response.docs.map(function(doc) {
+            var charList = response_a.docs.map(function(doc) {
                 return doc.data().char;
             });
             var charDataList = [];
             for(var i=0;i<charList.length;i++) {
-                const response = await this.firestore.collection("characters").doc(charList[i]).get();
+                const response_b = await this.firestore.collection("characters").doc(charList[i]).get();
                 charDataList.push({
-                    cid: response.id,
-                    avatar: response.data().avatar,
-                    name: response.data().name
+                    cid: response_b.id,
+                    avatar: response_b.data().avatar,
+                    name: response_b.data().name
                 });
             }
             return charDataList;
         } catch(err) {
             console.log("Error: ", err);
+        }
+    }
+
+    async getSectionLores(sid) {
+        try {
+            const response_a = await this.firestore.collection("sec_lore_contains")
+                                                 .where("sec", "==", sid)
+                                                 .get();
+            var loreList = response_a.docs.map(function(doc) {
+                return doc.data().lore;
+            });
+            var loreDataList = [];
+            for(var i=0;i<loreList.length;i++) {
+                const response_b = await this.firestore.collection("lores").doc(loreList[i]).get();
+                loreDataList.push({
+                    lid: response_b.id,
+                    name: response_b.data().name
+                });
+            }
+            return loreDataList;
+        } catch(err) {
+            console.log("Error: ", err);
+        }
+    }
+
+    async getSubsections(sid) {
+        try {
+            const response_a = await this.firestore.collection("sec_sec_contains")
+                                                 .where("parent", "==", sid)
+                                                 .get();
+            var secList = response_a.docs.map(function(doc) {
+                return doc.data().child;
+            });
+            var secDataList = [];
+            for(var i=0;i<secList.length;i++) {
+                const response_b = await this.firestore.collection("sections").doc(secList[i]).get();
+                secDataList.push({
+                    sid: response_b.id,
+                    name: response_b.data().name
+                });
+            }
+            return secDataList;
+        } catch(err) {
+
         }
     }
 
@@ -130,16 +174,6 @@ class Fire {
             return (chr.cid == cid);
         });
         return char[0];
-    }
-
-    getCharacterName(cid) {
-        var char = this.getCharacter(cid);
-        return char.name;
-    }
-
-    getChararacterPic(cid) {
-        var char = this.getCharacter(cid);
-        return char.avatar;
     }
 
     getCharacterDescript(cid) {
@@ -205,80 +239,6 @@ class Fire {
             }
         });
         return orderedContent;
-    }
-
-    getLore(cid) {
-        var lore = lores.filter(function (lor) {
-            return (lor.cid == cid);
-        });
-        return lore[0];
-    }
-
-    getLoreName(cid) {
-        var lore = this.getLore(cid);
-        return lore.name;
-    }
-
-    getSection(sid) {
-        var section = sections.filter(function (sec) {
-            return (sec.sid == sid);
-        });
-        return section[0];
-    }
-
-    getSectionName(sid) {
-        var section = this.getSection(sid);
-        return section.name;
-    }
-
-    /*getSectionLores(sid) {
-        var self = this;
-        var linkList = sectioncreationcontains.filter(function (lnk) {
-            return (lnk.sid == sid);
-        });
-        var loreList = lores.filter(function (lor) {
-            return (self.creationIsIn(lor.cid, linkList));
-        });
-        var loreIdList = loreList.map(function (lor) {
-            return lor.cid;
-        });
-        return loreIdList;
-    }*/
-
-    /*sectionIsIn(sid, lnkList) {
-        var matchList = lnkList.filter(function (lnk) {
-            return (lnk.childid == sid);
-        });
-        if(matchList.length == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }*/
-
-    /*getSubsections(sid) {
-        var self = this;
-        var linkList = sectionsectioncontains.filter(function (lnk) {
-            return (lnk.parentid == sid);
-        });
-        var sectionList = sections.filter(function (sec) {
-            return (self.sectionIsIn(sec.sid, linkList));
-        });
-        var secIdList = sectionList.map(function (sec) {
-            return sec.sid;
-        });
-        return secIdList;
-    }*/
-
-    emailExists(email) {
-        var user = users.filter(function (usr) {
-            return usr.email == email;
-        });
-        if(user.length != 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
     //temp func end
 
