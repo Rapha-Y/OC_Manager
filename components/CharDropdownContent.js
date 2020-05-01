@@ -10,13 +10,14 @@ export default class CharDropdownContent extends Component {
     state = {
         uid: this.props.uid,
         ssid: this.props.ssid,
-        itemList: Fire.shared.getCharDropdownItems(this.props.ssid),
-        display: Fire.shared.getCharDropdownDisplay(this.props.ssid)
+        //itemList: Fire.shared.getCharDropdownItems(this.props.ssid),
+        //display: Fire.shared.getCharDropdownDisplay(this.props.ssid)
     }
     
     render() {
         return(
-            <View style={styles.wrapper}>
+            <View/>
+            /*<View style={styles.wrapper}>
                 <FlatList
                     data={this.state.itemList}
                     renderItem={({ item }) => 
@@ -29,7 +30,7 @@ export default class CharDropdownContent extends Component {
                     }
                     keyExtractor={item => item}
                 />
-            </View>
+            </View>*/
         );
     }
 }

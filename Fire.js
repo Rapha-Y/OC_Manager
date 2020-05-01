@@ -102,8 +102,8 @@ class Fire {
     async getSectionCharacters(sid) {
         try {
             const response_a = await this.firestore.collection("sec_char_contains")
-                                                 .where("sec", "==", sid)
-                                                 .get();
+                                                   .where("sec", "==", sid)
+                                                   .get();
             var charList = response_a.docs.map(function(doc) {
                 return doc.data().char;
             });
@@ -125,8 +125,8 @@ class Fire {
     async getSectionLores(sid) {
         try {
             const response_a = await this.firestore.collection("sec_lore_contains")
-                                                 .where("sec", "==", sid)
-                                                 .get();
+                                                   .where("sec", "==", sid)
+                                                   .get();
             var loreList = response_a.docs.map(function(doc) {
                 return doc.data().lore;
             });
@@ -147,8 +147,8 @@ class Fire {
     async getSubsections(sid) {
         try {
             const response_a = await this.firestore.collection("sec_sec_contains")
-                                                 .where("parent", "==", sid)
-                                                 .get();
+                                                   .where("parent", "==", sid)
+                                                   .get();
             var secList = response_a.docs.map(function(doc) {
                 return doc.data().child;
             });
@@ -162,41 +162,30 @@ class Fire {
             }
             return secDataList;
         } catch(err) {
+            console.log("Error: ", err);
+        }
+    }
 
+    async getCharDropdowns(cid) {
+        try {
+            const response = await this.firestore.collection("charDivision")
+                                                 .where("char", "==", cid)
+                                                 .orderBy("position")
+                                                 .get();
+            var charDivList = response.docs.map(function(doc) {
+                return {
+                    id: doc.id,
+                    name: doc.data().name
+                };
+            })
+            return charDivList;
+        } catch(err) {
+            console.log("Error: ", err);
         }
     }
 
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
-
-    getCharacter(cid) {
-        var char = characters.filter(function (chr) {
-            return (chr.cid == cid);
-        });
-        return char[0];
-    }
-
-    getCharacterDescript(cid) {
-        var char = this.getCharacter(cid);
-        return char.description;
-    }
-
-    getCharDropdowns(cid) { //add function to order dropdown by position later
-        var dropdowns = itemlists.filter(function (list) {
-            return(list.cid == cid);
-        });
-        var dropdownIDs = dropdowns.map(function (dpdn) {
-            return dpdn.ssid;
-        });
-        return dropdownIDs;
-    }
-
-    getCharDropdownName(ssid) {
-        var dropdown = itemlists.filter(function (list) {
-            return(list.ssid == ssid);
-        });
-        return dropdown[0].name;
-    }
 
     getCharDropdownDisplay(ssid) {
         var dropdown = itemlists.filter(function (list) {

@@ -15,12 +15,14 @@ export default class Section extends Component {
     }
 
     async componentDidMount() {
-        const characters = await Fire.shared.getSectionCharacters(this.state.sid);
-        const lores = await Fire.shared.getSectionLores(this.state.sid);
-        const subsections = await Fire.shared.getSubsections(this.state.sid);
-        this.setState({ characters });
-        this.setState({ lores });
-        this.setState({ subsections });
+        if(this.state.sid != null) {
+            const characters = await Fire.shared.getSectionCharacters(this.state.sid);
+            const lores = await Fire.shared.getSectionLores(this.state.sid);
+            const subsections = await Fire.shared.getSubsections(this.state.sid);
+            this.setState({ characters });
+            this.setState({ lores });
+            this.setState({ subsections });
+        }
     }
 
     //could make use of a filter to order content by type, date, name, etc
