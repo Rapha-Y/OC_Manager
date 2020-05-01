@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet, Text } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 
+import Loader from '../components/Loader';
 import CharSummary from '../components/CharSummary';
 import Colors from '../resources/Colors';
 
@@ -28,9 +29,7 @@ export default class Feed extends Component {
     render() {
         if(this.state.charList == null){
             return(
-                <View>
-                    <Text>Loading... (Please pretty me up)</Text>
-                </View>
+                <Loader/>
             );
         } else {
             return(

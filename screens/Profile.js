@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import Loader from '../components/Loader';
 import ProfileTabs from '../components/ProfileTabs';
 import Colors from '../resources/Colors';
 import NumShortener from '../resources/NumShortener';
@@ -28,9 +29,7 @@ export default class Profile extends Component {
         || this.state.characterNumber == null 
         || this.state.followerNumber == null) {
             return(
-                <View>
-                    <Text>Loading... (Please pretty me up)</Text>
-                </View>
+                <Loader/>
             );
         } else {
             return(

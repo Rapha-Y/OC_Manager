@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 
+import Loader from '../components/Loader';
 import CharDropdownContent from '../components/CharDropdownContent';
 import Dropdown from '../components/Dropdown';
 import Fire from '../Fire';
@@ -20,11 +21,7 @@ export default class Character extends Component {
     render() {
         if(this.state.dropdownList == null) {
             return(
-                <View>
-                    <Text>
-                        Loading... (Please pretty me up)
-                    </Text>
-                </View>
+                <Loader/>
             );
         } else {
             return(

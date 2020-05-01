@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import CreationList from '../components/CreationList';
+import Loader from '../components/Loader';
 
 import Fire from '../Fire'
 
@@ -80,9 +80,7 @@ export default class Section extends Component {
         || this.state.lores == null
         || this.state.subsections == null) {
             return(
-                <View>
-                    <Text>Loading... (Please pretty me up)</Text>
-                </View>
+                <Loader/>
             );
         } else {
             return(
