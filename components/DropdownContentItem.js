@@ -3,7 +3,9 @@ import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native
 
 import Fire from '../Fire';
 
-class Content extends Component {
+import Loader from '../components/Loader';
+
+/*class Content extends Component {
     state = {
         text: this.props.text
     }
@@ -15,24 +17,26 @@ class Content extends Component {
             </View>
         );
     }
-}
+}*/
 
 export default class DropdownContentItem extends Component {
     state = {
         uid: this.props.uid,
         iid: this.props.iid,
         display: this.props.display,
-        title: Fire.shared.getListItemTitle(this.props.iid),
-        content: Fire.shared.getListItemContent(this.props.iid)
+        name: this.props.name,
+        
+        /*title: Fire.shared.getListItemTitle(this.props.iid),
+        content: Fire.shared.getListItemContent(this.props.iid)*/
     }
 
-    getPosition(item) {
+    /*getPosition(item) {
         return (item.position).toString();
-    }
+    }*/
 
-    getText(item) {
+    /*getText(item) {
         return item.text;
-    }
+    }*/
 
     render() {
         if(this.state.display == 'row') {
@@ -40,11 +44,12 @@ export default class DropdownContentItem extends Component {
                 <View style={styles.horiSection}>
                     <View style={styles.horiTitleSection}>
                         <Text style={styles.title}>
-                            {this.state.title}:
+                            {this.state.name}:
                         </Text>
                     </View>
                     <View style={styles.horiContentSection}>
-                        <FlatList
+                        <Loader/>
+                        {/*<FlatList
                             data={this.state.content}
                             renderItem={({ item }) =>
                                 <Content
@@ -53,7 +58,7 @@ export default class DropdownContentItem extends Component {
                                 />
                             }
                             keyExtractor={item => this.getPosition(item)}
-                        />
+                        />*/}
                     </View>
                 </View>
             );
@@ -62,10 +67,11 @@ export default class DropdownContentItem extends Component {
                 <View style={styles.vertiSection}>
                     <View style={styles.vertiTitleSection}>
                         <Text style={styles.title}>
-                            {this.state.title}:
+                            {this.state.name}:
                         </Text>
                     </View>
-                    <FlatList
+                    <Loader/>
+                    {/*<FlatList
                         data={this.state.content}
                         renderItem={({ item }) =>
                             <Content
@@ -74,7 +80,7 @@ export default class DropdownContentItem extends Component {
                             />
                         }
                         keyExtractor={item => this.getPosition(item)}
-                    />
+                    />*/}
                 </View>
             );
         }

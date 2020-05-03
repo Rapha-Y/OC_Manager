@@ -175,7 +175,8 @@ class Fire {
             var charDivList = response.docs.map(function(doc) {
                 return {
                     id: doc.id,
-                    name: doc.data().name
+                    name: doc.data().name,
+                    display: doc.data().display
                 };
             })
             return charDivList;
@@ -184,25 +185,27 @@ class Fire {
         }
     }
 
+    async getCharDropdownItems(ssid) {
+        try {
+            const response = await this.firestore.collection("charSubDiv")
+                                                 .where("charDiv", "==", ssid)
+                                                 .orderBy("position")
+                                                 .get();
+            console.log(response.docs.map(function(doc) { return {id: doc.id, data: doc.data()}; }));
+            var charSubDivList = response.docs.map(function(doc) {
+                return {
+                    id: doc.id,
+                    name: doc.data().name
+                }
+            });
+            return charSubDivList;
+        } catch(err) {
+            console.log("Error: ", err);
+        }
+    }
+
     //temporary functions - the calls made to these functions are to be kept, but their way of handling
     //data shall be updated to store/fetch data from firebase instead
-
-    getCharDropdownDisplay(ssid) {
-        var dropdown = itemlists.filter(function (list) {
-            return(list.ssid == ssid);
-        });
-        return dropdown[0].display;
-    }
-
-    getCharDropdownItems(ssid) {
-        var items = listItems.filter(function (item) {
-            return(item.ssid == ssid);
-        });
-        var itemIDs = items.map(function (itm) {
-            return itm.iid;
-        });
-        return itemIDs;
-    }
 
     getListItem(iid) {
         var item = listItems.filter(function (itm) {

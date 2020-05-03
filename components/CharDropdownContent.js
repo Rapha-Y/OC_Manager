@@ -3,6 +3,7 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import Colors from '../resources/Colors';
 
 import DropdownContentItem from '../components/DropdownContentItem';
+import Loader from '../components/Loader';
 
 import Fire from '../Fire';
 
@@ -10,28 +11,43 @@ export default class CharDropdownContent extends Component {
     state = {
         uid: this.props.uid,
         ssid: this.props.ssid,
+
+        display: this.props.display,
+        itemList: null //id, name
+
         //itemList: Fire.shared.getCharDropdownItems(this.props.ssid),
         //display: Fire.shared.getCharDropdownDisplay(this.props.ssid)
     }
+
+    async componentDidMount() {
+        const itemList = await Fire.shared.getCharDropdownItems(this.state.ssid);
+        this.setState({ itemList });
+    }
     
     render() {
-        return(
-            <View/>
-            /*<View style={styles.wrapper}>
-                <FlatList
-                    data={this.state.itemList}
-                    renderItem={({ item }) => 
-                        <DropdownContentItem 
-                            navigation={this.props.navigation}
-                            uid={this.state.uid}
-                            iid={item}
-                            display={this.state.display}
-                        />
-                    }
-                    keyExtractor={item => item}
-                />
-            </View>*/
-        );
+        if(this.state.itemList == null) {
+            return(
+                <Loader/>
+            );
+        } else {
+            return(
+                <View style={styles.wrapper}>
+                    <FlatList
+                        data={this.state.itemList}
+                        renderItem={({ item }) => 
+                            <DropdownContentItem 
+                                navigation={this.props.navigation}
+                                uid={this.state.uid}
+                                iid={item.id}
+                                name={item.name}
+                                display={this.state.display}
+                            />
+                        }
+                        keyExtractor={item => item.id}
+                    />
+                </View>
+            );
+        }
     }
 }
 

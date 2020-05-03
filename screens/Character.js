@@ -37,6 +37,7 @@ export default class Character extends Component {
                                         navigation={this.props.navigation}
                                         uid={this.state.uid}
                                         ssid={item.id}
+                                        display={item.display}
                                     />
                                 }
                             />
