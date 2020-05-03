@@ -191,7 +191,6 @@ class Fire {
                                                  .where("charDiv", "==", ssid)
                                                  .orderBy("position")
                                                  .get();
-            console.log(response.docs.map(function(doc) { return {id: doc.id, data: doc.data()}; }));
             var charSubDivList = response.docs.map(function(doc) {
                 return {
                     id: doc.id,
