@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 
 import Fire from '../Fire';
 
+import Content from '../components/Content';
 import Loader from '../components/Loader';
 
-/*class Content extends Component {
-    state = {
-        text: this.props.text
-    }
-    
-    render() {
-        return (
-            <View>
-                <Text style={styles.content}>{this.state.text}</Text>
-            </View>
-        );
-    }
-}*/
 
 export default class DropdownContentItem extends Component {
     state = {
@@ -26,63 +14,69 @@ export default class DropdownContentItem extends Component {
         display: this.props.display,
         name: this.props.name,
         
-        /*title: Fire.shared.getListItemTitle(this.props.iid),
-        content: Fire.shared.getListItemContent(this.props.iid)*/
+        content: null //name, link, id
     }
 
-    /*getPosition(item) {
-        return (item.position).toString();
-    }*/
-
-    /*getText(item) {
-        return item.text;
-    }*/
+    async componentDidMount() {
+        const content = await Fire.shared.getListItemContent(this.props.iid);
+        this.setState({ content });
+    }
 
     render() {
-        if(this.state.display == 'row') {
+        if(this.state.content == null) {
             return (
-                <View style={styles.horiSection}>
-                    <View style={styles.horiTitleSection}>
-                        <Text style={styles.title}>
-                            {this.state.name}:
-                        </Text>
+                <Loader/>
+            );
+        } else {
+            if(this.state.display == 'row') {
+                return (
+                    <View style={styles.horiSection}>
+                        <View style={styles.horiTitleSection}>
+                            <Text style={styles.title}>
+                                {this.state.name}:
+                            </Text>
+                        </View>
+                        <View style={styles.horiContentSection}>
+                            <FlatList
+                                data={this.state.content}
+                                renderItem={({ item }) =>
+                                    <Content
+                                        uid={this.state.uid}
+                                        navigation={this.props.navigation} 
+                                        text={item.name}
+                                        link={item.link}
+                                        id={item.id}
+                                    />
+                                }
+                                keyExtractor={item => item.id}
+                            />
+                        </View>
                     </View>
-                    <View style={styles.horiContentSection}>
-                        <Loader/>
-                        {/*<FlatList
+                );
+            } else { //then it's supposed to be 'column', maybe another if could help with error handling
+                return (
+                    <View style={styles.vertiSection}>
+                        <View style={styles.vertiTitleSection}>
+                            <Text style={styles.title}>
+                                {this.state.name}:
+                            </Text>
+                        </View>
+                        <FlatList
                             data={this.state.content}
                             renderItem={({ item }) =>
                                 <Content
+                                    uid={this.state.uid}
                                     navigation={this.props.navigation} 
-                                    text={this.getText(item)}
+                                    text={item.name}
+                                    link={item.link}
+                                    id={item.id}
                                 />
                             }
-                            keyExtractor={item => this.getPosition(item)}
-                        />*/}
+                            keyExtractor={item => item.id}
+                        />
                     </View>
-                </View>
-            );
-        } else { //then it's supposed to be 'column', maybe another if could help with error handling
-            return (
-                <View style={styles.vertiSection}>
-                    <View style={styles.vertiTitleSection}>
-                        <Text style={styles.title}>
-                            {this.state.name}:
-                        </Text>
-                    </View>
-                    <Loader/>
-                    {/*<FlatList
-                        data={this.state.content}
-                        renderItem={({ item }) =>
-                            <Content
-                                navigation={this.props.navigation} 
-                                text={this.getText(item)}
-                            />
-                        }
-                        keyExtractor={item => this.getPosition(item)}
-                    />*/}
-                </View>
-            );
+                );
+            }
         }
     }
 }
@@ -109,7 +103,4 @@ const styles = StyleSheet.create({
     horiContentSection: {
         flex: 2
     },
-    content: {
-        fontSize: 15
-    }
 });

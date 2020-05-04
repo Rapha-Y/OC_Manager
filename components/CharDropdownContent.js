@@ -14,9 +14,6 @@ export default class CharDropdownContent extends Component {
 
         display: this.props.display,
         itemList: null //id, name
-
-        //itemList: Fire.shared.getCharDropdownItems(this.props.ssid),
-        //display: Fire.shared.getCharDropdownDisplay(this.props.ssid)
     }
 
     async componentDidMount() {

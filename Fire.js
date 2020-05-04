@@ -203,35 +203,24 @@ class Fire {
         }
     }
 
-    //temporary functions - the calls made to these functions are to be kept, but their way of handling
-    //data shall be updated to store/fetch data from firebase instead
-
-    getListItem(iid) {
-        var item = listItems.filter(function (itm) {
-            return(itm.iid == iid);
-        });
-        return item[0];
+    async getListItemContent(iid) {
+        try {
+            const response = await this.firestore.collection("charItem")
+                                                 .where("charSubDiv", "==", iid)
+                                                 .orderBy("position")
+                                                 .get();
+            var charItemList = response.docs.map(function(doc) {
+                return {
+                    id: doc.id,
+                    link: doc.data().link,
+                    name: doc.data().name
+                }
+            });
+            return charItemList;
+        } catch(err) {
+            console.log("Error: ", err);
+        }
     }
-
-    getListItemTitle(iid) {
-        var item = this.getListItem(iid);
-        return item.title;
-    }
-
-    getListItemContent(iid) {
-        var unorderedContent = content.filter(function (con) {
-            return(con.iid == iid);
-        });
-        var orderedContent = unorderedContent.sort(function (a, b) {
-            if(a.position < b.position) {
-                return -1;
-            } else { //assuming >0, could be interesting to add an error if ==0
-                return 1;
-            }
-        });
-        return orderedContent;
-    }
-    //temp func end
 
     createUser = async user => {
         let remoteUri = null;
