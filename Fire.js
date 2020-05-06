@@ -28,7 +28,7 @@ class Fire {
     //"try"s might be unnecessary, error handling is useful, though
     async getAllCharacters() {
         try {
-            const response = await this.firestore.collection("characters").get();
+            const response = await this.firestore.collection("characters").orderBy("date", "desc").get();
             return response.docs.map(function(doc) {
                 return {
                     cid: doc.id,
