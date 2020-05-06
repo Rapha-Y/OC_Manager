@@ -16,7 +16,7 @@ export default class CharSummary extends Component {
     render() {
         return (
             <TouchableOpacity onPress={() => {this.props.navigation.navigate("Character", {
-                title: /*Fire.shared.getCharacterName(this.state.cid)*/ "Fix me later",
+                title: this.state.name,
                 uid: this.state.uid,
                 cid: this.state.cid
             })}}>
