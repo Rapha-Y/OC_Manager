@@ -50,7 +50,7 @@ export default class Login extends Component {
                 .then(function() {
                     var uid = Fire.shared.uid;
                     if(uid) {
-                        handlerFunc(uid);           
+                        handlerFunc(uid);       
                     }
                 });
     }

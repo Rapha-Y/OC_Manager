@@ -16,6 +16,7 @@ import Lore from './screens/Lore';
 import Profile from './screens/Profile';
 import Signin from './screens/Signin';
 import Colors from './resources/Colors';
+import Loader from './components/Loader';
 
 import firebaseConfig from "./important-info/apiKey";
 import Fire from './Fire';
@@ -323,6 +324,11 @@ class BottomTabs extends Component {
           }}
           initialParams={{ uid: this.state.uid }}
         />
+        <BotTab.Screen
+          name="Temp"
+          component={TempLogOut}
+          initialParams={{ uidHandler: this.props.route.params.uidHandler }}
+        />
       </BotTab.Navigator>
     );
   }
@@ -339,7 +345,7 @@ class AppContainer extends Component {
         <Stack.Screen 
           name="default" 
           component={BottomTabs}
-          initialParams={{ uid: this.state.uid }} 
+          initialParams={{ uid: this.state.uid, uidHandler: this.props.route.params.uidHandler }} 
         />
       </Stack.Navigator>
     );
@@ -364,36 +370,84 @@ class AuthStack extends Component {
   }
 }
 
-export default class FullApp extends Component {
+class FullApp extends Component {
   state = {
-    uid: Fire.shared.uid
+    uid: this.uidTranslation(this.props.route.params.uid),
   }
   
-  uidHandler(id) {
+  /*uidHandler(id) {
     this.setState({ uid: id });
+  }*/
+
+  uidTranslation(uid) {
+    if(uid == "truthy") {
+      return null;
+    } else {
+      return uid;
+    }
   }
 
-  //delete this later
-  componentDidMount() {
-    console.log("id: ", this.uid);
+  render() {
+    return(
+      <Stack.Navigator headerMode={"none"}>
+        {this.state.uid ? (
+          <Stack.Screen 
+            name="App" 
+            component={AppContainer} 
+            initialParams={{ uid: this.state.uid, uidHandler: this.props.route.params.uidHandler }}
+          />
+        ) : (
+          <Stack.Screen 
+            name="Auth" 
+            component={AuthStack} 
+            initialParams={{ uidHandler: this.props.route.params.uidHandler }} 
+          />
+        )}
+      </Stack.Navigator>
+    );
+  }
+}
+
+export default class AppWithSplash extends Component {
+  state = {
+    uid: null
+  }
+
+  async componentDidMount() {
+    this.getAuthStatus();
+  }
+
+  getAuthStatus() {
+    firebase.auth().onAuthStateChanged((resp) => {
+      var uid;
+      if(resp) {
+        uid = resp.uid;
+      } else {
+        uid = "truthy";
+      }
+      this.setState({ uid });
+    });
+  }
+
+  uidHandler(uid) {
+    this.setState({ uid: null });
+    //note: if the state isn't switched to a falsy value, the switch navigator doesn't update, as even with
+    //a change in the uid state value, it'd be from truthy to truthy
+    this.setState({ uid });
   }
 
   render() {
     return(
       <NavigationContainer>
-        <Stack.Navigator headerMode={"none"}>
+        <Stack.Navigator headerMode="none">
           {this.state.uid ? (
             <Stack.Screen 
-              name="App" 
-              component={AppContainer} 
-              initialParams={{ uid: this.state.uid }}
+              name="FullApp" 
+              component={FullApp} 
+              initialParams={{ uid: this.state.uid, uidHandler: this.uidHandler.bind(this) }}
             />
           ) : (
-            <Stack.Screen 
-              name="Auth" 
-              component={AuthStack} 
-              initialParams={{ uidHandler: this.uidHandler.bind(this) }} 
-            />
+            <Stack.Screen name="Splash" component={Loader}/>
           )}
         </Stack.Navigator>
       </NavigationContainer>

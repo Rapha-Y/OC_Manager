@@ -3,14 +3,17 @@ import { View, Button, Text } from 'react-native';
 import * as firebase from 'firebase';
 
 export default class TempLogOut extends Component {
+    updatedUid(){
+        var uidHandler = this.props.route.params.uidHandler;
+        uidHandler("");
+    }
+
     render() {
         return(
             <View>
-                <Text>Hello, {this.props.route.params.uid}</Text>
                 <Button title="LOG OUT" onPress={() => { 
-                    firebase.auth().signOut().then(
-                        this.props.route.params.uidHandler(null)
-                    );  
+                    firebase.auth().signOut();
+                    this.updatedUid();
                 }}/>
             </View>
         );
