@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 
-import Fire from '../Fire';
-
 import Content from '../components/Content';
-import Loader from '../components/Loader';
 
 
 export default class DropdownContentItem extends Component {
@@ -14,53 +11,19 @@ export default class DropdownContentItem extends Component {
         display: this.props.display,
         name: this.props.name,
         
-        content: null //name, link, id
-    }
-
-    async componentDidMount() {
-        const content = await Fire.shared.getListItemContent(this.props.iid);
-        this.setState({ content });
+        content: this.props.content //attributes: name, link, id
     }
 
     render() {
-        if(this.state.content == null) {
+        if(this.state.display == 'row') {
             return (
-                <Loader/>
-            );
-        } else {
-            if(this.state.display == 'row') {
-                return (
-                    <View style={styles.horiSection}>
-                        <View style={styles.horiTitleSection}>
-                            <Text style={styles.title}>
-                                {this.state.name}:
-                            </Text>
-                        </View>
-                        <View style={styles.horiContentSection}>
-                            <FlatList
-                                data={this.state.content}
-                                renderItem={({ item }) =>
-                                    <Content
-                                        uid={this.state.uid}
-                                        navigation={this.props.navigation} 
-                                        text={item.name}
-                                        link={item.link}
-                                        id={item.id}
-                                    />
-                                }
-                                keyExtractor={item => item.id}
-                            />
-                        </View>
+                <View style={styles.horiSection}>
+                    <View style={styles.horiTitleSection}>
+                        <Text style={styles.title}>
+                            {this.state.name}:
+                        </Text>
                     </View>
-                );
-            } else { //then it's supposed to be 'column', maybe another if could help with error handling
-                return (
-                    <View style={styles.vertiSection}>
-                        <View style={styles.vertiTitleSection}>
-                            <Text style={styles.title}>
-                                {this.state.name}:
-                            </Text>
-                        </View>
+                    <View style={styles.horiContentSection}>
                         <FlatList
                             data={this.state.content}
                             renderItem={({ item }) =>
@@ -75,8 +38,31 @@ export default class DropdownContentItem extends Component {
                             keyExtractor={item => item.id}
                         />
                     </View>
-                );
-            }
+                </View>
+            );
+        } else { //then it's supposed to be 'column', maybe another if could help with error handling
+            return (
+                <View style={styles.vertiSection}>
+                    <View style={styles.vertiTitleSection}>
+                        <Text style={styles.title}>
+                            {this.state.name}:
+                        </Text>
+                    </View>
+                    <FlatList
+                        data={this.state.content}
+                        renderItem={({ item }) =>
+                            <Content
+                                uid={this.state.uid}
+                                navigation={this.props.navigation} 
+                                text={item.name}
+                                link={item.link}
+                                id={item.id}
+                            />
+                        }
+                        keyExtractor={item => item.id}
+                    />
+                </View>
+            );
         }
     }
 }

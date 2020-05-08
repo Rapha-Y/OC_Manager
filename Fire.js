@@ -25,7 +25,6 @@ class Fire {
         }
     }
 
-    //"try"s might be unnecessary, error handling is useful, though
     async getAllCharacters() {
         try {
             const response = await this.firestore.collection("characters").orderBy("date", "desc").get();
@@ -172,13 +171,14 @@ class Fire {
                                                  .where("char", "==", cid)
                                                  .orderBy("position")
                                                  .get();
-            var charDivList = response.docs.map(function(doc) {
+            var charDivList = await Promise.all(response.docs.map(async function(doc) {
                 return {
                     id: doc.id,
                     name: doc.data().name,
-                    display: doc.data().display
+                    display: doc.data().display,
+                    charSubDivList: await Fire.shared.getCharDropdownItems(doc.id)
                 };
-            })
+            }));
             return charDivList;
         } catch(err) {
             console.log("Error: ", err);
@@ -191,12 +191,13 @@ class Fire {
                                                  .where("charDiv", "==", ssid)
                                                  .orderBy("position")
                                                  .get();
-            var charSubDivList = response.docs.map(function(doc) {
+            var charSubDivList = await Promise.all(response.docs.map(async function(doc) {
                 return {
                     id: doc.id,
-                    name: doc.data().name
+                    name: doc.data().name,
+                    charItemList: await Fire.shared.getListItemContent(doc.id)
                 }
-            });
+            }));
             return charSubDivList;
         } catch(err) {
             console.log("Error: ", err);

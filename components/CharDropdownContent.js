@@ -3,9 +3,6 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import Colors from '../resources/Colors';
 
 import DropdownContentItem from '../components/DropdownContentItem';
-import Loader from '../components/Loader';
-
-import Fire from '../Fire';
 
 export default class CharDropdownContent extends Component {
     state = {
@@ -13,38 +10,28 @@ export default class CharDropdownContent extends Component {
         ssid: this.props.ssid,
 
         display: this.props.display,
-        itemList: null //id, name
-    }
-
-    async componentDidMount() {
-        const itemList = await Fire.shared.getCharDropdownItems(this.state.ssid);
-        this.setState({ itemList });
+        itemList: this.props.itemList //attributes: id, name, charItemList
     }
     
     render() {
-        if(this.state.itemList == null) {
-            return(
-                <Loader/>
-            );
-        } else {
-            return(
-                <View style={styles.wrapper}>
-                    <FlatList
-                        data={this.state.itemList}
-                        renderItem={({ item }) => 
-                            <DropdownContentItem 
-                                navigation={this.props.navigation}
-                                uid={this.state.uid}
-                                iid={item.id}
-                                name={item.name}
-                                display={this.state.display}
-                            />
-                        }
-                        keyExtractor={item => item.id}
-                    />
-                </View>
-            );
-        }
+        return(
+            <View style={styles.wrapper}>
+                <FlatList
+                    data={this.state.itemList}
+                    renderItem={({ item }) => 
+                        <DropdownContentItem 
+                            navigation={this.props.navigation}
+                            uid={this.state.uid}
+                            iid={item.id}
+                            name={item.name}
+                            display={this.state.display}
+                            content={item.charItemList}
+                        />
+                    }
+                    keyExtractor={item => item.id}
+                />
+            </View>
+        );
     }
 }
 

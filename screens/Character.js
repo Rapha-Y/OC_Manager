@@ -10,7 +10,7 @@ export default class Character extends Component {
     state = {
         uid: this.props.route.params.uid,
         cid: this.props.route.params.cid,
-        dropdownList: null //Fire.shared.getCharDropdowns(this.props.route.params.cid)
+        dropdownList: null //attributes: id, name, display, charSubDivList
     }
 
     async componentDidMount() {
@@ -38,6 +38,7 @@ export default class Character extends Component {
                                         uid={this.state.uid}
                                         ssid={item.id}
                                         display={item.display}
+                                        itemList={item.charSubDivList}
                                     />
                                 }
                             />
